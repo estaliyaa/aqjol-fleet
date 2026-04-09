@@ -724,7 +724,7 @@ initSchedule();
 
 // ── Досье data ──
 const FOLDER_DRIVERS=[
-  {name:'Садыков Кайрат А.',initials:'СК',tab:'№22',phone:'+7 701 234-56-78',license:'KZ 07 №456123',licenseExp:'15.09.2028',cat:'D, DE',vehicle:'317-АЛА',status:'active',trips:1842,km:'128 400',hours:'6 120',rating:4.8,exp:'10 лет',park:'АТП-1',avgMonth:[142,156,138,167,151,148,160],
+  {name:'Садыков Кайрат А.',initials:'СК',tab:'№22',phone:'+7 701 234-56-78',license:'KZ 07 №456123',licenseExp:'15.09.2028',cat:'D, DE',vehicle:'317-АЛА',status:'active',trips:1842,km:'128 400',hours:'6 120',rating:4.8,exp:'10 лет',hireDate:'12.03.2016',park:'АТП-1',avgMonth:[142,156,138,167,151,148,160],
     finesList:[
       {type:'Превышение скорости (20–40 км/ч)',date:'08.04.2026',place:'ул. Абая 12',vehicle:'317-АЛА',amount:18000,discount:9000,days:3,proto:'АП №07-2026-04-0812',status:'active'},
       {type:'Нарушение разметки',date:'15.03.2026',place:'пр. Аль-Фараби 45',vehicle:'317-АЛА',amount:15000,discount:7500,days:0,proto:'АП №07-2026-03-1534',status:'paid'}
@@ -732,25 +732,25 @@ const FOLDER_DRIVERS=[
     dtpList:[
       {date:'08.04.2026',place:'ул. Абая 12, Алматы',type:'Столкновение',damage:'Передний бампер, левое крыло',otherParty:'Toyota Camry, 725 ALA',verdict:'innocent',proto:'ДТП №07-2026-0412',judge:'Сулейменов А.К.',decision:'Виновник — второй участник. Нарушение п. 13.4 ПДД РК.'}
     ]},
-  {name:'Нурланов Руслан К.',initials:'НР',tab:'№14',phone:'+7 702 345-67-89',license:'KZ 07 №781234',licenseExp:'03.12.2027',cat:'D',vehicle:'204-АЛА',status:'active',trips:2105,km:'145 200',hours:'7 340',rating:4.9,exp:'12 лет',park:'АТП-1',avgMonth:[168,172,155,180,163,170,175],
+  {name:'Нурланов Руслан К.',initials:'НР',tab:'№14',phone:'+7 702 345-67-89',license:'KZ 07 №781234',licenseExp:'03.12.2027',cat:'D',vehicle:'204-АЛА',status:'active',trips:2105,km:'145 200',hours:'7 340',rating:4.9,exp:'12 лет',hireDate:'05.08.2014',park:'АТП-1',avgMonth:[168,172,155,180,163,170,175],
     finesList:[
       {type:'Проезд на красный сигнал',date:'05.04.2026',place:'пр. Аль-Фараби',vehicle:'204-АЛА',amount:24000,discount:12000,days:6,proto:'АП №07-2026-04-0523',status:'active'}
     ],dtpList:[]},
-  {name:'Жаксыбеков Арман С.',initials:'ЖА',tab:'№36',phone:'+7 705 456-78-90',license:'KZ 07 №234567',licenseExp:'20.06.2029',cat:'D',vehicle:'109-АЛА',status:'active',trips:1456,km:'98 700',hours:'5 230',rating:4.6,exp:'7 лет',park:'АТП-1',avgMonth:[120,134,128,142,136,130,138],
+  {name:'Жаксыбеков Арман С.',initials:'ЖА',tab:'№36',phone:'+7 705 456-78-90',license:'KZ 07 №234567',licenseExp:'20.06.2029',cat:'D',vehicle:'109-АЛА',status:'active',trips:1456,km:'98 700',hours:'5 230',rating:4.6,exp:'7 лет',hireDate:'20.01.2019',park:'АТП-1',avgMonth:[120,134,128,142,136,130,138],
     finesList:[
       {type:'Нарушение разметки',date:'06.04.2026',place:'ул. Толе Би',vehicle:'109-АЛА',amount:5000,discount:2500,days:7,proto:'АП №07-2026-04-0615',status:'active'}
     ],dtpList:[]},
-  {name:'Байжанов Серик Т.',initials:'БС',tab:'№08',phone:'+7 707 567-89-01',license:'KZ 07 №345678',licenseExp:'11.03.2028',cat:'D, DE',vehicle:'156-АЛА',status:'active',trips:1678,km:'112 300',hours:'5 890',rating:4.7,exp:'9 лет',park:'АТП-1',avgMonth:[135,148,140,155,142,138,150],finesList:[],dtpList:[]},
-  {name:'Амиров Дастан К.',initials:'АД',tab:'№41',phone:'+7 700 678-90-12',license:'KZ 07 №567890',licenseExp:'25.01.2027',cat:'D',vehicle:'228-АЛА',status:'active',trips:1234,km:'85 600',hours:'4 670',rating:4.3,exp:'5 лет',park:'АТП-2',avgMonth:[98,112,105,118,110,108,115],finesList:[],dtpList:[]},
-  {name:'Мусин Ерлан Б.',initials:'МЕ',tab:'№19',phone:'+7 708 789-01-23',license:'KZ 07 №678901',licenseExp:'08.07.2028',cat:'D',vehicle:'391-АЛА',status:'vacation',trips:1567,km:'108 100',hours:'5 560',rating:4.4,exp:'8 лет',park:'АТП-1',avgMonth:[125,138,130,145,132,128,140],
+  {name:'Байжанов Серик Т.',initials:'БС',tab:'№08',phone:'+7 707 567-89-01',license:'KZ 07 №345678',licenseExp:'11.03.2028',cat:'D, DE',vehicle:'156-АЛА',status:'active',trips:1678,km:'112 300',hours:'5 890',rating:4.7,exp:'9 лет',hireDate:'14.06.2017',park:'АТП-1',avgMonth:[135,148,140,155,142,138,150],finesList:[],dtpList:[]},
+  {name:'Амиров Дастан К.',initials:'АД',tab:'№41',phone:'+7 700 678-90-12',license:'KZ 07 №567890',licenseExp:'25.01.2027',cat:'D',vehicle:'228-АЛА',status:'active',trips:1234,km:'85 600',hours:'4 670',rating:4.3,exp:'5 лет',hireDate:'03.09.2021',park:'АТП-2',avgMonth:[98,112,105,118,110,108,115],finesList:[],dtpList:[]},
+  {name:'Мусин Ерлан Б.',initials:'МЕ',tab:'№19',phone:'+7 708 789-01-23',license:'KZ 07 №678901',licenseExp:'08.07.2028',cat:'D',vehicle:'391-АЛА',status:'vacation',trips:1567,km:'108 100',hours:'5 560',rating:4.4,exp:'8 лет',hireDate:'22.04.2018',park:'АТП-1',avgMonth:[125,138,130,145,132,128,140],
     finesList:[
       {type:'Парковка в неположенном месте',date:'01.04.2026',place:'ул. Жандосова 22',vehicle:'391-АЛА',amount:6000,discount:3000,days:0,proto:'АП №07-2026-04-0109',status:'paid'}
     ],dtpList:[]},
-  {name:'Ермеков Канат Б.',initials:'ЕК',tab:'№27',phone:'+7 771 890-12-34',license:'KZ 07 №789012',licenseExp:'14.11.2026',cat:'D',vehicle:'078-АЛА',status:'active',trips:1890,km:'131 200',hours:'6 450',rating:4.5,exp:'11 лет',park:'АТП-2',avgMonth:[148,155,142,165,152,148,158],
+  {name:'Ермеков Канат Б.',initials:'ЕК',tab:'№27',phone:'+7 771 890-12-34',license:'KZ 07 №789012',licenseExp:'14.11.2026',cat:'D',vehicle:'078-АЛА',status:'active',trips:1890,km:'131 200',hours:'6 450',rating:4.5,exp:'11 лет',hireDate:'17.11.2015',park:'АТП-2',avgMonth:[148,155,142,165,152,148,158],
     finesList:[
       {type:'Превышение скорости',date:'28.03.2026',place:'пр. Рыскулова',vehicle:'078-АЛА',amount:8000,discount:4000,days:0,proto:'АП №07-2026-03-2841',status:'paid'}
     ],dtpList:[]},
-  {name:'Токтаров Алмас М.',initials:'ТА',tab:'№33',phone:'+7 776 901-23-45',license:'KZ 07 №890123',licenseExp:'19.04.2029',cat:'D, DE',vehicle:'502-АЛА',status:'fired',trips:956,km:'64 300',hours:'3 210',rating:3.9,exp:'4 года',park:'АТП-1',avgMonth:[78,85,72,90,82,75,88],
+  {name:'Токтаров Алмас М.',initials:'ТА',tab:'№33',phone:'+7 776 901-23-45',license:'KZ 07 №890123',licenseExp:'19.04.2029',cat:'D, DE',vehicle:'502-АЛА',status:'fired',trips:956,km:'64 300',hours:'3 210',rating:3.9,exp:'4 года',hireDate:'10.02.2022',park:'АТП-1',avgMonth:[78,85,72,90,82,75,88],
     finesList:[
       {type:'Превышение скорости (40+ км/ч)',date:'12.03.2026',place:'трасса Алматы-Бишкек',vehicle:'502-АЛА',amount:24000,discount:12000,days:0,proto:'АП №07-2026-03-1245',status:'paid'},
       {type:'Проезд на красный',date:'25.02.2026',place:'ул. Тимирязева 42',vehicle:'502-АЛА',amount:12000,discount:6000,days:0,proto:'АП №07-2026-02-2518',status:'paid'},
@@ -760,8 +760,8 @@ const FOLDER_DRIVERS=[
       {date:'05.03.2026',place:'трасса Алматы-Бишкек, 42 км',type:'Столкновение',damage:'Лобовое, кузов, рама',otherParty:'Hyundai County, 812 BPP',verdict:'guilty',proto:'ДТП №07-2026-0305',judge:'Ахметова Г.С.',decision:'Нарушение п. 10.1 ПДД РК — несоблюдение скоростного режима. Лишение прав на 3 мес.'},
       {date:'18.12.2025',place:'ул. Розыбакиева 28, Алматы',type:'Наезд на препятствие',damage:'Правое зеркало, дверь',otherParty:'—',verdict:'guilty',proto:'ДТП №07-2025-1218',judge:'Касымов Б.Т.',decision:'Нарушение п. 9.10 ПДД РК — несоблюдение дистанции.'}
     ]},
-  {name:'Сагинбаев Олжас Р.',initials:'СО',tab:'№05',phone:'+7 747 012-34-56',license:'KZ 07 №012345',licenseExp:'22.08.2027',cat:'D',vehicle:'445-АЛА',status:'active',trips:2340,km:'162 500',hours:'8 120',rating:4.9,exp:'14 лет',park:'АТП-2',avgMonth:[185,192,178,200,188,182,195],finesList:[],dtpList:[]},
-  {name:'Бекмуратов Дамир Н.',initials:'БД',tab:'№47',phone:'+7 702 123-45-67',license:'KZ 07 №901234',licenseExp:'30.05.2028',cat:'D',vehicle:'612-АЛА',status:'vacation',trips:1123,km:'77 800',hours:'4 120',rating:4.2,exp:'3 года',park:'АТП-2',avgMonth:[88,95,82,102,92,85,98],finesList:[],dtpList:[]},
+  {name:'Сагинбаев Олжас Р.',initials:'СО',tab:'№05',phone:'+7 747 012-34-56',license:'KZ 07 №012345',licenseExp:'22.08.2027',cat:'D',vehicle:'445-АЛА',status:'active',trips:2340,km:'162 500',hours:'8 120',rating:4.9,exp:'14 лет',hireDate:'28.07.2012',park:'АТП-2',avgMonth:[185,192,178,200,188,182,195],finesList:[],dtpList:[]},
+  {name:'Бекмуратов Дамир Н.',initials:'БД',tab:'№47',phone:'+7 702 123-45-67',license:'KZ 07 №901234',licenseExp:'30.05.2028',cat:'D',vehicle:'612-АЛА',status:'vacation',trips:1123,km:'77 800',hours:'4 120',rating:4.2,exp:'3 года',hireDate:'15.05.2023',park:'АТП-2',avgMonth:[88,95,82,102,92,85,98],finesList:[],dtpList:[]},
 ];
 
 const FOLDER_VEHICLES=[
@@ -968,6 +968,7 @@ function buildFolderHTML(prefix,showDriverTab){
                 <div class="fld-pg-item"><span class="fld-pg-label">Вод. удостоверение</span><span class="fld-pg-value">${d.license}</span></div>
                 <div class="fld-pg-item"><span class="fld-pg-label">Действует до</span><span class="fld-pg-value">${d.licenseExp}</span></div>
                 <div class="fld-pg-item"><span class="fld-pg-label">Закреплённое ТС</span><span class="fld-pg-value"><span class="fld-link">${d.vehicle}</span></span></div>
+                <div class="fld-pg-item"><span class="fld-pg-label">Дата начала работы</span><span class="fld-pg-value">${d.hireDate}</span></div>
               </div>
             </div>
           </div>
