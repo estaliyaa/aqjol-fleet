@@ -1404,11 +1404,288 @@ function buildPages(role,notifs){
       </div>
     </div>
     <div class="page" id="pg-head-schedule">${buildScheduleHTML()}</div>
-    <div class="page" id="pg-head-clearance"><div class="card"><div class="ch"><div class="ct">${icon('shield','i-sm')} Допуск к выезду</div></div><div class="cb" style="color:var(--muted);font-size:13px">Контроль цепочки допуска</div></div></div>
-    <div class="page" id="pg-head-monitor"><div class="card"><div class="ch"><div class="ct">${icon('radar','i-sm')} Мониторинг</div></div><div class="cb" style="color:var(--muted);font-size:13px">Отслеживание транспорта в реальном времени</div></div></div>
-    <div class="page" id="pg-head-fines"><div class="card"><div class="ch"><div class="ct">${icon('alertCircle','i-sm')} Штрафы</div></div><div class="cb" style="color:var(--muted);font-size:13px">Управление штрафами автопарка</div></div></div>
-    <div class="page" id="pg-head-fuel"><div class="card"><div class="ch"><div class="ct">${icon('fuel','i-sm')} Топливо</div></div><div class="cb" style="color:var(--muted);font-size:13px">Контроль топлива и заправок</div></div></div>
-    <div class="page" id="pg-head-1c"><div class="card"><div class="ch"><div class="ct">${icon('arrowLR','i-sm')} Интеграция 1С</div></div><div class="cb" style="color:var(--muted);font-size:13px">Передача данных в бухгалтерскую систему</div></div></div>
+    <!-- ═══ ДОПУСК К ВЫЕЗДУ ═══ -->
+    <div class="page" id="pg-head-clearance">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Допущено сегодня</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('shield','i-sm')}</div></div><div class="kpi-val" style="color:var(--green)">41</div><div class="kpi-d up">${icon('chevUp','i-sm')} из 48</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Ожидают допуска</div><div class="kpi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('clock','i-sm')}</div></div><div class="kpi-val" style="color:var(--amber)">5</div><div class="kpi-d">на осмотре</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Отказано</div><div class="kpi-ic" style="background:var(--red-50);color:var(--red)">${icon('x','i-sm')}</div></div><div class="kpi-val" style="color:var(--red)">2</div><div class="kpi-d dn">тех. неисправность</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Ср. время допуска</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('clock','i-sm')}</div></div><div class="kpi-val">12<span style="font-size:14px;color:var(--muted)"> мин</span></div><div class="kpi-d">цепочка из 4 этапов</div></div>
+      </div>
+      <!-- Цепочка допуска — визуальная схема -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="ch"><div class="ct">${icon('shield','i-sm')} Цепочка допуска — сегодня 08.04.2026</div><div style="display:flex;gap:6px"><span class="chip c-green">41 допущен</span><span class="chip c-amber">5 в процессе</span><span class="chip c-red">2 отказ</span></div></div>
+        <div class="cb">
+          <div class="asteps" style="margin-bottom:16px">
+            <div class="astep ok"><div class="astep-in"><div class="astep-n">01</div><div class="astep-l">Механик (ТО)</div><div class="astep-s">Серикбаев А.Н.</div></div></div>
+            <div class="astep ok"><div class="astep-in"><div class="astep-n">02</div><div class="astep-l">Врач (медосмотр)</div><div class="astep-s">Маратова С.К.</div></div></div>
+            <div class="astep ok"><div class="astep-in"><div class="astep-n">03</div><div class="astep-l">Диспетчер</div><div class="astep-s">Бекова А.Т.</div></div></div>
+            <div class="astep ok"><div class="astep-in"><div class="astep-n">04</div><div class="astep-l">Выезд на линию</div><div class="astep-s">Маршрут</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct">${icon('users','i-sm')} Журнал допусков</div>
+          <div style="display:flex;gap:6px">
+            <div class="top-search" style="position:relative">${icon('search','i-sm')}<input placeholder="Поиск водителя..." style="width:160px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:11px;background:var(--bg);outline:none"></div>
+          </div>
+        </div>
+        <div style="overflow-x:auto"><table class="dt"><thead><tr><th>Водитель</th><th>ТС</th><th>Механик</th><th>Врач</th><th>Диспетчер</th><th>Время</th><th>Статус</th></tr></thead><tbody>
+          <tr><td><b>Садыков К.А.</b></td><td>317-АЛА</td><td><span class="chip c-green">OK</span></td><td><span class="chip c-green">OK</span></td><td><span class="chip c-green">Допуск</span></td><td>07:15</td><td><span class="chip c-blue">В рейсе</span></td></tr>
+          <tr><td><b>Нурланов Р.К.</b></td><td>204-АЛА</td><td><span class="chip c-green">OK</span></td><td><span class="chip c-green">OK</span></td><td><span class="chip c-green">Допуск</span></td><td>07:20</td><td><span class="chip c-blue">В рейсе</span></td></tr>
+          <tr><td><b>Жаксыбеков А.С.</b></td><td>109-АЛА</td><td><span class="chip c-green">OK</span></td><td><span class="chip c-green">OK</span></td><td><span class="chip c-green">Допуск</span></td><td>07:18</td><td><span class="chip c-blue">В рейсе</span></td></tr>
+          <tr><td><b>Байжанов С.Т.</b></td><td>156-АЛА</td><td><span class="chip c-green">OK</span></td><td><span class="chip c-amber">Ожидание</span></td><td><span class="chip c-gray">—</span></td><td>—</td><td><span class="chip c-amber">Осмотр</span></td></tr>
+          <tr><td><b>Амиров Д.К.</b></td><td>228-АЛА</td><td><span class="chip c-green">OK</span></td><td><span class="chip c-amber">Ожидание</span></td><td><span class="chip c-gray">—</span></td><td>—</td><td><span class="chip c-amber">Осмотр</span></td></tr>
+          <tr><td><b>Мусин Е.Б.</b></td><td>391-АЛА</td><td><span class="chip c-green">OK</span></td><td><span class="chip c-amber">Ожидание</span></td><td><span class="chip c-gray">—</span></td><td>—</td><td><span class="chip c-amber">Осмотр</span></td></tr>
+          <tr><td><b>Ермеков К.Б.</b></td><td>078-АЛА</td><td><span class="chip c-red">Отказ</span></td><td><span class="chip c-gray">—</span></td><td><span class="chip c-gray">—</span></td><td>—</td><td><span class="chip c-red">Недопуск</span></td></tr>
+          <tr><td><b>Токтаров А.М.</b></td><td>502-АЛА</td><td><span class="chip c-red">Отказ</span></td><td><span class="chip c-gray">—</span></td><td><span class="chip c-gray">—</span></td><td>—</td><td><span class="chip c-red">Недопуск</span></td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ═══ МОНИТОРИНГ ═══ -->
+    <div class="page" id="pg-head-monitor">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-label">В рейсе</div><div class="kpi-val" style="color:var(--blue)">34</div><div class="kpi-d">обновлено 30 сек назад</div></div>
+        <div class="kpi"><div class="kpi-label">На стоянке</div><div class="kpi-val">8</div><div class="kpi-d">готовы к выезду</div></div>
+        <div class="kpi"><div class="kpi-label">На ТО</div><div class="kpi-val" style="color:var(--amber)">4</div><div class="kpi-d" style="color:var(--amber)">плановое</div></div>
+        <div class="kpi"><div class="kpi-label">Инциденты</div><div class="kpi-val" style="color:var(--red)">1</div><div class="kpi-d dn">ТС 317-АЛА</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:14px;margin-bottom:14px">
+        <div class="card" style="overflow:hidden">
+          <div class="ch" style="z-index:2;position:relative"><div class="ct">${icon('mapPin','i-sm')} Карта автопарка — Алматы</div><div style="display:flex;gap:4px"><span class="chip c-blue">В рейсе 34</span><span class="chip c-green">Готов 8</span><span class="chip c-amber">ТО 4</span><span class="chip c-red">ЧП 1</span></div></div>
+          <div style="height:340px;background:var(--bg-2);position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,var(--border) 39px,var(--border) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,var(--border) 39px,var(--border) 40px)"></div>
+            <!-- Vehicle dots -->
+            <div style="position:absolute;top:35%;left:42%;width:12px;height:12px;border-radius:50%;background:var(--red);border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.2);animation:dp 1.2s infinite"></div>
+            <div style="position:absolute;top:45%;left:55%;width:12px;height:12px;border-radius:50%;background:var(--blue);border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.2)"></div>
+            <div style="position:absolute;top:28%;left:38%;width:12px;height:12px;border-radius:50%;background:var(--blue);border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.2)"></div>
+            <div style="position:absolute;top:60%;left:62%;width:12px;height:12px;border-radius:50%;background:var(--green);border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.2)"></div>
+            <div style="position:absolute;top:25%;left:70%;width:12px;height:12px;border-radius:50%;background:var(--amber);border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.2)"></div>
+            <div style="position:absolute;top:50%;left:30%;width:12px;height:12px;border-radius:50%;background:var(--blue);border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.2)"></div>
+            <div style="position:absolute;top:55%;left:48%;width:12px;height:12px;border-radius:50%;background:var(--blue);border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.2)"></div>
+            <div style="position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);padding:5px 10px;border-radius:6px;font-size:10px;color:var(--text-2);border:1px solid var(--border)">© OpenStreetMap · Алматы</div>
+          </div>
+        </div>
+        <div class="card" style="overflow-y:auto;max-height:400px">
+          <div class="ch"><div class="ct">Транспорт</div><span class="chip c-gray" style="font-size:9px">7 ТС</span></div>
+          <div class="cb" style="padding:6px 10px"><div class="vl">
+            <div class="vi sel"><div class="vi-ic" style="background:var(--red-50);color:var(--red)">${icon('alertCircle','i-sm')}</div><div style="flex:1"><div class="vi-plate">317-АЛА</div><div class="vi-model">ЛиАЗ 5256 · Садыков</div></div><span class="chip c-red">ЧП</span></div>
+            <div class="vi"><div class="vi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div><div style="flex:1"><div class="vi-plate">204-АЛА</div><div class="vi-model">МАЗ-203 · Нурланов</div></div><span class="chip c-blue">Рейс</span></div>
+            <div class="vi"><div class="vi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div><div style="flex:1"><div class="vi-plate">109-АЛА</div><div class="vi-model">ЛиАЗ 5292 · Жаксыбеков</div></div><span class="chip c-blue">Рейс</span></div>
+            <div class="vi"><div class="vi-ic" style="background:var(--green-50);color:var(--green)">${icon('checkCircle','i-sm')}</div><div style="flex:1"><div class="vi-plate">445-АЛА</div><div class="vi-model">Yutong · Байжанов</div></div><span class="chip c-green">Готов</span></div>
+            <div class="vi"><div class="vi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('wrench','i-sm')}</div><div style="flex:1"><div class="vi-plate">078-АЛА</div><div class="vi-model">МАЗ-206</div></div><span class="chip c-amber">ТО</span></div>
+            <div class="vi"><div class="vi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div><div style="flex:1"><div class="vi-plate">156-АЛА</div><div class="vi-model">ЛиАЗ 5292 · Амиров</div></div><span class="chip c-blue">Рейс</span></div>
+            <div class="vi"><div class="vi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div><div style="flex:1"><div class="vi-plate">228-АЛА</div><div class="vi-model">МАЗ-203 · Ермеков</div></div><span class="chip c-blue">Рейс</span></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card"><div class="ch"><div class="ct">${icon('activity','i-sm')} Последние события</div></div><div class="cb" style="padding:12px 18px"><ul class="tl">
+          <li class="tl-i"><div class="tl-d" style="background:var(--red-50);color:var(--red)">${icon('alertTriangle','i-sm')}</div><div class="tl-b"><div class="tl-t">ЧП — ТС 317-АЛА</div><div class="tl-s">ДТП · ул. Абая 12 · Садыков К.</div><div class="tl-tm">09:50</div></div></li>
+          <li class="tl-i"><div class="tl-d" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div><div class="tl-b"><div class="tl-t">Выезд ТС 204-АЛА</div><div class="tl-s">Маршрут №14 · Нурланов Р.</div><div class="tl-tm">07:25</div></div></li>
+          <li class="tl-i"><div class="tl-d" style="background:var(--green-50);color:var(--green)">${icon('shield','i-sm')}</div><div class="tl-b"><div class="tl-t">Допуск — 41 водитель</div><div class="tl-s">Все этапы пройдены</div><div class="tl-tm">07:15</div></div></li>
+          <li class="tl-i"><div class="tl-d" style="background:var(--amber-50);color:var(--amber)">${icon('wrench','i-sm')}</div><div class="tl-b"><div class="tl-t">ТО — ТС 078-АЛА</div><div class="tl-s">Плановое обслуживание начато</div><div class="tl-tm">06:45</div></div></li>
+        </ul></div></div>
+        <div class="card"><div class="ch"><div class="ct">${icon('barChart','i-sm')} Скорость по ТС (км/ч)</div></div><div class="cb">
+          ${[['317-АЛА',0,'Стоит (ЧП)','var(--red)'],['204-АЛА',42,'Норма','var(--blue)'],['109-АЛА',38,'Норма','var(--blue)'],['156-АЛА',55,'Норма','var(--blue)'],['228-АЛА',61,'Внимание','var(--amber)']].map(([p,s,l,c])=>`
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span style="width:70px;font-size:11px;font-weight:600">${p}</span>
+            <div style="flex:1;height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden"><div style="height:100%;width:${s}%;background:${c};border-radius:4px;max-width:100%"></div></div>
+            <span style="width:60px;font-size:10px;color:${c};font-weight:600;text-align:right">${s?s+' км/ч':l}</span>
+          </div>`).join('')}
+          <div style="font-size:10px;color:var(--muted);margin-top:8px;display:flex;gap:12px"><span>Лимит: <b style="color:var(--text-1)">60 км/ч</b></span><span>Ср. скорость: <b style="color:var(--text-1)">39.2 км/ч</b></span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ═══ ШТРАФЫ ═══ -->
+    <div class="page" id="pg-head-fines">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Всего штрафов (апрель)</div><div class="kpi-ic" style="background:var(--red-50);color:var(--red)">${icon('alertCircle','i-sm')}</div></div><div class="kpi-val" style="color:var(--red)">5</div><div class="kpi-d dn">этот месяц</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Общая сумма</div><div class="kpi-ic" style="background:var(--red-50);color:var(--red)">${icon('percent','i-sm')}</div></div><div class="kpi-val">78K<span style="font-size:14px;color:var(--muted)"> ₸</span></div><div class="kpi-d dn">к погашению</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Со скидкой 50%</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('check','i-sm')}</div></div><div class="kpi-val" style="color:var(--green)">39K<span style="font-size:14px;color:var(--muted)"> ₸</span></div><div class="kpi-d up">экономия при оплате в срок</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Оплачено</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('checkCircle','i-sm')}</div></div><div class="kpi-val">11K<span style="font-size:14px;color:var(--muted)"> ₸</span></div><div class="kpi-d">2 штрафа закрыты</div></div>
+      </div>
+      <div class="disc">${icon('percent','i-sm')} Скидка 50% действует 10 дней с момента нарушения. Оплатите вовремя.</div>
+      <div class="g2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="ch"><div class="ct">${icon('alertCircle','i-sm')} Активные штрафы</div><span class="chip c-red">3 к оплате</span></div>
+          <div style="padding:0">
+            <div class="fine" style="padding:12px 18px;background:var(--red-50);border-bottom:1px solid var(--red-100);cursor:pointer" onclick="openNotifDetail(0)">
+              <div class="fine-ic" style="background:var(--red-100);color:var(--red)">${icon('alertTriangle','i-sm')}</div>
+              <div style="flex:1"><div class="fine-t">Превышение скорости (20–40 км/ч)</div><div class="fine-s">317-АЛА · Садыков К.А. · 08.04.2026 · ул. Абая 12</div><div style="margin-top:4px"><span class="chip c-amber">Льгота: 3 дня</span></div></div>
+              <div style="text-align:right"><div class="fine-amt">18 000 ₸<small style="color:var(--green)">9 000 ₸ со ск.</small></div></div>
+            </div>
+            <div class="fine" style="padding:12px 18px;border-bottom:1px solid var(--border);cursor:pointer">
+              <div class="fine-ic" style="background:var(--red-50);color:var(--red)">${icon('alertCircle','i-sm')}</div>
+              <div style="flex:1"><div class="fine-t">Проезд на красный сигнал</div><div class="fine-s">204-АЛА · Нурланов Р.К. · 05.04.2026 · пр. Аль-Фараби</div><div style="margin-top:4px"><span class="chip c-green">Льгота: 6 дней</span></div></div>
+              <div style="text-align:right"><div class="fine-amt">24 000 ₸<small style="color:var(--green)">12 000 ₸ со ск.</small></div></div>
+            </div>
+            <div class="fine" style="padding:12px 18px;cursor:pointer">
+              <div class="fine-ic" style="background:var(--red-50);color:var(--red)">${icon('alertCircle','i-sm')}</div>
+              <div style="flex:1"><div class="fine-t">Нарушение разметки</div><div class="fine-s">109-АЛА · Жаксыбеков А.С. · 06.04.2026 · ул. Толе Би</div><div style="margin-top:4px"><span class="chip c-green">Льгота: 7 дней</span></div></div>
+              <div style="text-align:right"><div class="fine-amt">5 000 ₸<small style="color:var(--green)">2 500 ₸ со ск.</small></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">${icon('checkCircle','i-sm')} Оплаченные</div><span class="chip c-green">2</span></div>
+          <div style="padding:0">
+            <div class="fine" style="padding:12px 18px;opacity:.7;border-bottom:1px solid var(--border)">
+              <div class="fine-ic" style="background:var(--bg-2);color:var(--muted)">${icon('check','i-sm')}</div>
+              <div style="flex:1"><div class="fine-t" style="color:var(--muted)">Парковка в неположенном месте</div><div class="fine-s">391-АЛА · Мусин Е.Б. · 01.04.2026</div><div style="margin-top:4px"><span class="chip c-green">Оплачен</span></div></div>
+              <div style="text-align:right"><div class="fine-amt" style="color:var(--muted)">6 000 ₸<small style="color:var(--green)">3 000 ₸ (со ск.)</small></div></div>
+            </div>
+            <div class="fine" style="padding:12px 18px;opacity:.7">
+              <div class="fine-ic" style="background:var(--bg-2);color:var(--muted)">${icon('check','i-sm')}</div>
+              <div style="flex:1"><div class="fine-t" style="color:var(--muted)">Превышение скорости</div><div class="fine-s">228-АЛА · Ермеков К.Б. · 28.03.2026</div><div style="margin-top:4px"><span class="chip c-green">Оплачен</span></div></div>
+              <div style="text-align:right"><div class="fine-amt" style="color:var(--muted)">8 000 ₸<small style="color:var(--green)">Закрыт</small></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct">${icon('barChart','i-sm')} Штрафы по водителям</div></div>
+        <div class="cb">
+          ${[['Садыков К.А.',2,33000,'var(--red)'],['Нурланов Р.К.',1,24000,'var(--amber)'],['Жаксыбеков А.С.',1,5000,'var(--amber)'],['Ермеков К.Б.',1,8000,'var(--muted)']].map(([n,c,s,cl])=>`
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bg-2)">
+            <span style="width:140px;font-size:12px;font-weight:600">${n}</span>
+            <div style="flex:1;height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden"><div style="height:100%;width:${Math.round(s/33000*100)}%;background:${cl};border-radius:4px"></div></div>
+            <span style="font-size:11px;font-weight:600;width:80px;text-align:right">${s.toLocaleString('ru')} ₸</span>
+            <span class="chip ${cl==='var(--muted)'?'c-green':'c-red'}" style="font-size:9px">${c} шт.</span>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ТОПЛИВО ═══ -->
+    <div class="page" id="pg-head-fuel">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Общий расход (апрель)</div><div class="kpi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('fuel','i-sm')}</div></div><div class="kpi-val">5 240<span style="font-size:14px;color:var(--muted)"> л</span></div><div class="kpi-d dn">${icon('chevDn','i-sm')} −3% к пред. мес.</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Ср. расход на 100 км</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('barChart','i-sm')}</div></div><div class="kpi-val">28.4<span style="font-size:14px;color:var(--muted)"> л</span></div><div class="kpi-d">норма: 30 л</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Требуют заправки</div><div class="kpi-ic" style="background:var(--red-50);color:var(--red)">${icon('alertCircle','i-sm')}</div></div><div class="kpi-val" style="color:var(--red)">7</div><div class="kpi-d dn">остаток &lt; 25%</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Стоимость (апрель)</div><div class="kpi-ic" style="background:var(--slate-100);color:var(--slate)">${icon('percent','i-sm')}</div></div><div class="kpi-val">1.4M<span style="font-size:14px;color:var(--muted)"> ₸</span></div><div class="kpi-d">~270 ₸/л</div></div>
+      </div>
+      <div class="g2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="ch"><div class="ct">${icon('fuel','i-sm')} Уровень топлива по ТС</div><span class="chip c-amber">7 заправить</span></div>
+          <div class="cb">
+            ${[['317-АЛА','Садыков К.',67,'var(--blue)'],['204-АЛА','Нурланов Р.',54,'var(--blue)'],['445-АЛА','Байжанов С.',88,'var(--green)'],['109-АЛА','Жаксыбеков А.',41,'var(--amber)'],['078-АЛА','—',32,'var(--amber)'],['156-АЛА','Амиров Д.',22,'var(--red)'],['228-АЛА','Ермеков К.',18,'var(--red)'],['391-АЛА','Мусин Е.',15,'var(--red)']].map(([p,d,l,c])=>`
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--bg-2)">
+              <span style="width:70px;font-size:11px;font-weight:700">${p}</span>
+              <span style="width:90px;font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d}</span>
+              <div style="flex:1;height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden"><div style="height:100%;width:${l}%;background:${c};border-radius:4px"></div></div>
+              <span style="width:36px;font-size:11px;font-weight:600;text-align:right;color:${c}">${l}%</span>
+              ${l<25?'<span class="chip c-red" style="font-size:9px">Заправить</span>':''}
+            </div>`).join('')}
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">${icon('barChart','i-sm')} Расход по дням (апрель)</div></div>
+          <div class="cb">
+            <div class="bars" style="height:100px">
+              <div class="bar" style="height:65%;background:var(--amber-200)"></div>
+              <div class="bar" style="height:72%;background:var(--amber-200)"></div>
+              <div class="bar" style="height:58%;background:var(--amber-200)"></div>
+              <div class="bar" style="height:80%;background:var(--amber-200)"></div>
+              <div class="bar" style="height:68%;background:var(--amber-200)"></div>
+              <div class="bar" style="height:42%;background:var(--amber-200)"></div>
+              <div class="bar" style="height:88%;background:var(--amber)"></div>
+            </div>
+            <div class="bar-lbl"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span style="color:var(--amber);font-weight:700">Вс</span></div>
+            <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:11px;color:var(--muted)">
+              <span>Всего за неделю: <b style="color:var(--text-1)">1 320 л</b></span>
+              <span>Ср. в день: <b style="color:var(--text-1)">188 л</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct">${icon('clock','i-sm')} Последние заправки</div>
+          <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">${icon('download','i-sm')} Экспорт</button>
+        </div>
+        <div style="overflow-x:auto"><table class="dt"><thead><tr><th>Дата</th><th>ТС</th><th>Водитель</th><th>АЗС</th><th>Объём</th><th>Стоимость</th><th>Пробег до</th></tr></thead><tbody>
+          <tr><td>08.04 09:10</td><td><b>156-АЛА</b></td><td>Амиров Д.</td><td>KazMunaiGas №42</td><td>65 л</td><td>17 550 ₸</td><td>142 300 км</td></tr>
+          <tr><td>08.04 08:45</td><td><b>228-АЛА</b></td><td>Ермеков К.</td><td>Shell №18</td><td>72 л</td><td>19 440 ₸</td><td>108 200 км</td></tr>
+          <tr><td>07.04 18:20</td><td><b>391-АЛА</b></td><td>Мусин Е.</td><td>KazMunaiGas №42</td><td>58 л</td><td>15 660 ₸</td><td>195 100 км</td></tr>
+          <tr><td>07.04 14:30</td><td><b>317-АЛА</b></td><td>Садыков К.</td><td>Sinooil №7</td><td>70 л</td><td>18 900 ₸</td><td>141 800 км</td></tr>
+          <tr><td>07.04 07:55</td><td><b>109-АЛА</b></td><td>Жаксыбеков А.</td><td>Shell №18</td><td>68 л</td><td>18 360 ₸</td><td>185 800 км</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ═══ ИНТЕГРАЦИЯ 1С ═══ -->
+    <div class="page" id="pg-head-1c">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Статус подключения</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('checkCircle','i-sm')}</div></div><div class="kpi-val" style="font-size:20px;color:var(--green)">Активно</div><div class="kpi-d">синхронизация OK</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Последняя синхр.</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('clock','i-sm')}</div></div><div class="kpi-val" style="font-size:18px">08:00</div><div class="kpi-d">сегодня, авто</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Передано записей</div><div class="kpi-ic" style="background:var(--slate-100);color:var(--slate)">${icon('arrowLR','i-sm')}</div></div><div class="kpi-val">1 248</div><div class="kpi-d">за апрель</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Ошибки</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('check','i-sm')}</div></div><div class="kpi-val" style="color:var(--green)">0</div><div class="kpi-d">все данные корректны</div></div>
+      </div>
+      <div class="g2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="ch"><div class="ct">${icon('arrowLR','i-sm')} Модули интеграции</div></div>
+          <div class="cb">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              ${[['Путевые листы','Автоматическая выгрузка данных о рейсах, маршрутах и пробеге','Активно','green',412],['Табель учёта','Рабочие часы водителей, графики смен','Активно','green',320],['ГСМ (топливо)','Данные о заправках, расходе топлива, АЗС','Активно','green',285],['Штрафы и нарушения','Интеграция с ИБД МВД РК','Активно','green',89],['Техобслуживание','Акты ТО, расходные материалы, запчасти','Активно','green',142]].map(([t,d,s,c,cnt])=>`
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:var(--r);transition:all .1s">
+                <div style="width:36px;height:36px;border-radius:var(--r);background:var(--${c}-50);color:var(--${c});display:flex;align-items:center;justify-content:center;flex-shrink:0">${icon('checkCircle','i-sm')}</div>
+                <div style="flex:1"><div style="font-size:12px;font-weight:600">${t}</div><div style="font-size:10px;color:var(--muted);margin-top:1px">${d}</div></div>
+                <span style="font-size:11px;color:var(--muted);font-weight:500">${cnt} зап.</span>
+                <span class="chip c-${c}" style="font-size:9px">${s}</span>
+              </div>`).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">${icon('clock','i-sm')} Журнал синхронизации</div></div>
+          <div class="cb" style="padding:12px 18px"><ul class="tl">
+            <li class="tl-i"><div class="tl-d" style="background:var(--green-50);color:var(--green)">${icon('check','i-sm')}</div><div class="tl-b"><div class="tl-t">Путевые листы — 412 записей</div><div class="tl-s">Выгружено в 1С:Бухгалтерия</div><div class="tl-tm">08:00 сегодня</div></div></li>
+            <li class="tl-i"><div class="tl-d" style="background:var(--green-50);color:var(--green)">${icon('check','i-sm')}</div><div class="tl-b"><div class="tl-t">Табель — 320 записей</div><div class="tl-s">Выгружено в 1С:ЗУП</div><div class="tl-tm">08:00 сегодня</div></div></li>
+            <li class="tl-i"><div class="tl-d" style="background:var(--green-50);color:var(--green)">${icon('check','i-sm')}</div><div class="tl-b"><div class="tl-t">ГСМ — 285 записей</div><div class="tl-s">Выгружено в 1С:Бухгалтерия</div><div class="tl-tm">08:00 сегодня</div></div></li>
+            <li class="tl-i"><div class="tl-d" style="background:var(--blue-50);color:var(--blue)">${icon('arrowLR','i-sm')}</div><div class="tl-b"><div class="tl-t">Штрафы — 89 записей</div><div class="tl-s">Синхронизация с ИБД МВД РК</div><div class="tl-tm">07:30 сегодня</div></div></li>
+          </ul></div>
+          <div style="padding:12px 18px;border-top:1px solid var(--border)">
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-blue" style="flex:1;justify-content:center;font-size:11px">${icon('arrowLR','i-sm')} Синхронизировать сейчас</button>
+              <button class="btn btn-ghost" style="padding:6px 12px;font-size:11px">${icon('download','i-sm')} Выгрузить отчёт</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct">${icon('calendar','i-sm')} Настройки расписания</div></div>
+        <div class="cb">
+          <div class="g3">
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Расписание выгрузки</div>
+              <div class="sr"><span class="sr-l">Путевые листы</span><span class="sr-v">Ежедневно 08:00</span></div>
+              <div class="sr"><span class="sr-l">Табель учёта</span><span class="sr-v">Ежедневно 08:00</span></div>
+              <div class="sr"><span class="sr-l">ГСМ</span><span class="sr-v">Ежедневно 08:00</span></div>
+              <div class="sr"><span class="sr-l">Штрафы</span><span class="sr-v">Каждые 6 часов</span></div>
+              <div class="sr"><span class="sr-l">Техобслуживание</span><span class="sr-v">По событию</span></div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Подключение</div>
+              <div class="sr"><span class="sr-l">Сервер 1С</span><span class="sr-v">1c.atp1.fleet.kz</span></div>
+              <div class="sr"><span class="sr-l">База</span><span class="sr-v">ATP1_Almaty</span></div>
+              <div class="sr"><span class="sr-l">Протокол</span><span class="sr-v">HTTPS / REST API</span></div>
+              <div class="sr"><span class="sr-l">Версия 1С</span><span class="sr-v">8.3.25</span></div>
+              <div class="sr"><span class="sr-l">Пинг</span><span class="sr-v" style="color:var(--green)">12 мс</span></div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Статистика (апрель)</div>
+              <div class="sr"><span class="sr-l">Всего синхронизаций</span><span class="sr-v">248</span></div>
+              <div class="sr"><span class="sr-l">Записей передано</span><span class="sr-v">1 248</span></div>
+              <div class="sr"><span class="sr-l">Ошибок</span><span class="sr-v" style="color:var(--green)">0</span></div>
+              <div class="sr"><span class="sr-l">Uptime</span><span class="sr-v" style="color:var(--green)">99.9%</span></div>
+              <div class="sr"><span class="sr-l">Ср. время выгрузки</span><span class="sr-v">3.2 сек</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     `;
   }
 
