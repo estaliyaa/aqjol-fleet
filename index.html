@@ -394,6 +394,29 @@ table.dt{width:100%;border-collapse:collapse;font-size:12px}
 .drv-card-meta{font-size:10px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .drv-card-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
 
+/* Folder (Картотека) module */
+.folder-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:18px}
+.folder-tab{padding:10px 20px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;display:flex;align-items:center;gap:6px}
+.folder-tab:hover{color:var(--text-1)}
+.folder-tab.on{color:var(--blue);border-bottom-color:var(--blue)}
+.folder-panel{display:none}.folder-panel.on{display:block}
+.fld-detail{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:box-shadow .15s}
+.fld-detail:hover{box-shadow:var(--shadow)}
+.fld-head{display:flex;align-items:center;gap:14px;padding:18px 20px;border-bottom:1px solid var(--border)}
+.fld-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;flex-shrink:0}
+.fld-name{font-size:15px;font-weight:700;letter-spacing:-.2px}
+.fld-role{font-size:11px;color:var(--muted);margin-top:1px}
+.fld-status{margin-left:auto;flex-shrink:0}
+.fld-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.fld-section{padding:16px 20px;border-right:1px solid var(--border)}
+.fld-section:last-child{border-right:none}
+.fld-sec-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.fld-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--bg-2)}
+.fld-row:last-child{border-bottom:none}
+.fld-row-l{font-size:11px;color:var(--text-2)}
+.fld-row-v{font-size:11px;font-weight:600;color:var(--text-1);text-align:right;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fld-link{color:var(--blue);cursor:pointer;text-decoration:none}.fld-link:hover{text-decoration:underline}
+
 /* View-as read-only mode — hide action buttons */
 .view-only .btn-blue,.view-only .btn-dark,.view-only .btn-danger,.view-only .btn-ghost,.view-only .sos-btn,.view-only .e-send{display:none!important}
 .view-only .sch-gen-bar button{display:none!important}
@@ -614,6 +637,8 @@ printer:'<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5
 alertTriangle:'<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
 carCrash:'<path d="M19 12H5"/><path d="m15 16 4-4-4-4"/><circle cx="7" cy="16" r="2"/><circle cx="17" cy="16" r="2"/><path d="m2 16 1-4h18l1 4"/>',
 heartPulse:'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>',
+folderOpen:'<path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/>',
+user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
 };
 function icon(name,cls=''){return `<span class="i ${cls}"><svg viewBox="0 0 24 24">${IC[name]||''}</svg></span>`}
 
@@ -646,6 +671,158 @@ function initSchedule(){
   });
 }
 initSchedule();
+
+// ── Folder (Картотека) data ──
+const FOLDER_DRIVERS=[
+  {name:'Садыков Кайрат А.',initials:'СК',tab:'№22',phone:'+7 701 234-56-78',license:'KZ 07 №456123, до 15.09.2028',vehicle:'317-АЛА',status:'active',color:'var(--green)',trips:1842,km:'128 400',hours:'6 120',rating:4.8,fines:2,fineSum:'33 000',park:'АТП-1'},
+  {name:'Нурланов Руслан К.',initials:'НР',tab:'№14',phone:'+7 702 345-67-89',license:'KZ 07 №781234, до 03.12.2027',vehicle:'204-АЛА',status:'active',color:'var(--green)',trips:2105,km:'145 200',hours:'7 340',rating:4.9,fines:1,fineSum:'24 000',park:'АТП-1'},
+  {name:'Жаксыбеков Арман С.',initials:'ЖА',tab:'№36',phone:'+7 705 456-78-90',license:'KZ 07 №234567, до 20.06.2029',vehicle:'109-АЛА',status:'active',color:'var(--green)',trips:1456,km:'98 700',hours:'5 230',rating:4.6,fines:1,fineSum:'5 000',park:'АТП-1'},
+  {name:'Байжанов Серик Т.',initials:'БС',tab:'№08',phone:'+7 707 567-89-01',license:'KZ 07 №345678, до 11.03.2028',vehicle:'156-АЛА',status:'active',color:'var(--green)',trips:1678,km:'112 300',hours:'5 890',rating:4.7,fines:0,fineSum:'0',park:'АТП-1'},
+  {name:'Амиров Дастан К.',initials:'АД',tab:'№41',phone:'+7 700 678-90-12',license:'KZ 07 №567890, до 25.01.2027',vehicle:'228-АЛА',status:'active',color:'var(--green)',trips:1234,km:'85 600',hours:'4 670',rating:4.3,fines:0,fineSum:'0',park:'АТП-2'},
+  {name:'Мусин Ерлан Б.',initials:'МЕ',tab:'№19',phone:'+7 708 789-01-23',license:'KZ 07 №678901, до 08.07.2028',vehicle:'391-АЛА',status:'vacation',color:'var(--amber)',trips:1567,km:'108 100',hours:'5 560',rating:4.4,fines:1,fineSum:'6 000',park:'АТП-1'},
+  {name:'Ермеков Канат Б.',initials:'ЕК',tab:'№27',phone:'+7 771 890-12-34',license:'KZ 07 №789012, до 14.11.2026',vehicle:'078-АЛА',status:'active',color:'var(--green)',trips:1890,km:'131 200',hours:'6 450',rating:4.5,fines:1,fineSum:'8 000',park:'АТП-2'},
+  {name:'Токтаров Алмас М.',initials:'ТА',tab:'№33',phone:'+7 776 901-23-45',license:'KZ 07 №890123, до 19.04.2029',vehicle:'502-АЛА',status:'fired',color:'var(--red)',trips:956,km:'64 300',hours:'3 210',rating:3.9,fines:3,fineSum:'42 000',park:'АТП-1'},
+  {name:'Сагинбаев Олжас Р.',initials:'СО',tab:'№05',phone:'+7 747 012-34-56',license:'KZ 07 №012345, до 22.08.2027',vehicle:'445-АЛА',status:'active',color:'var(--green)',trips:2340,km:'162 500',hours:'8 120',rating:4.9,fines:0,fineSum:'0',park:'АТП-2'},
+  {name:'Бекмуратов Дамир Н.',initials:'БД',tab:'№47',phone:'+7 702 123-45-67',license:'KZ 07 №901234, до 30.05.2028',vehicle:'612-АЛА',status:'vacation',color:'var(--amber)',trips:1123,km:'77 800',hours:'4 120',rating:4.2,fines:0,fineSum:'0',park:'АТП-2'},
+];
+
+const FOLDER_VEHICLES=[
+  {plate:'317-АЛА',model:'ЛиАЗ 5256',year:2020,vin:'XWB3K32EDLA123456',mileage:'142 800',status:'active',color:'var(--green)',driver:'Садыков К.А.',park:'АТП-1',fuel:'ДТ',tank:'250 л',lastTO:'02.04.2026',nextTO:'02.07.2026',insurance:'до 15.01.2027',techInsp:'до 20.09.2026'},
+  {plate:'204-АЛА',model:'МАЗ-203',year:2021,vin:'Y3M203067L0004521',mileage:'108 200',status:'active',color:'var(--green)',driver:'Нурланов Р.К.',park:'АТП-1',fuel:'ДТ',tank:'300 л',lastTO:'18.03.2026',nextTO:'18.06.2026',insurance:'до 03.03.2027',techInsp:'до 11.08.2026'},
+  {plate:'109-АЛА',model:'ЛиАЗ 5292',year:2019,vin:'XWB5292K9K0078341',mileage:'185 800',status:'active',color:'var(--green)',driver:'Жаксыбеков А.С.',park:'АТП-1',fuel:'ДТ',tank:'250 л',lastTO:'25.03.2026',nextTO:'25.06.2026',insurance:'до 10.05.2027',techInsp:'до 05.12.2026'},
+  {plate:'156-АЛА',model:'ЛиАЗ 5292',year:2022,vin:'XWB5292M2M0091203',mileage:'72 400',status:'active',color:'var(--green)',driver:'Байжанов С.Т.',park:'АТП-1',fuel:'ДТ',tank:'250 л',lastTO:'10.04.2026',nextTO:'10.07.2026',insurance:'до 22.11.2027',techInsp:'до 18.02.2027'},
+  {plate:'228-АЛА',model:'МАЗ-203',year:2020,vin:'Y3M203067L0006789',mileage:'134 500',status:'active',color:'var(--green)',driver:'Амиров Д.К.',park:'АТП-2',fuel:'ДТ',tank:'300 л',lastTO:'05.04.2026',nextTO:'05.07.2026',insurance:'до 14.06.2027',techInsp:'до 30.10.2026'},
+  {plate:'391-АЛА',model:'Yutong ZK6128',year:2021,vin:'LZYTETB48L1023456',mileage:'95 100',status:'maintenance',color:'var(--amber)',driver:'Мусин Е.Б.',park:'АТП-1',fuel:'ДТ',tank:'280 л',lastTO:'01.04.2026',nextTO:'На ТО',insurance:'до 08.09.2027',techInsp:'до 14.07.2026'},
+  {plate:'078-АЛА',model:'МАЗ-206',year:2018,vin:'Y3M206045J0002345',mileage:'212 300',status:'maintenance',color:'var(--amber)',driver:'—',park:'АТП-2',fuel:'ДТ',tank:'250 л',lastTO:'08.04.2026',nextTO:'На ТО',insurance:'до 25.04.2027',techInsp:'до 02.06.2026'},
+  {plate:'445-АЛА',model:'Yutong ZK6125',year:2023,vin:'LZYTETC45N1034567',mileage:'38 200',status:'active',color:'var(--green)',driver:'Сагинбаев О.Р.',park:'АТП-2',fuel:'ДТ',tank:'280 л',lastTO:'15.03.2026',nextTO:'15.06.2026',insurance:'до 30.12.2027',techInsp:'до 22.11.2026'},
+  {plate:'502-АЛА',model:'ЛиАЗ 5256',year:2017,vin:'XWB3K32EHH0056789',mileage:'245 600',status:'decommissioned',color:'var(--red)',driver:'—',park:'АТП-1',fuel:'ДТ',tank:'250 л',lastTO:'—',nextTO:'—',insurance:'истёк',techInsp:'истёк'},
+  {plate:'612-АЛА',model:'МАЗ-203',year:2022,vin:'Y3M203067M0008901',mileage:'54 800',status:'active',color:'var(--green)',driver:'Бекмуратов Д.Н.',park:'АТП-2',fuel:'ДТ',tank:'300 л',lastTO:'20.03.2026',nextTO:'20.06.2026',insurance:'до 17.08.2027',techInsp:'до 09.01.2027'},
+];
+
+function buildFolderHTML(prefix,showDriverTab){
+  const statusLabel={active:'Активен',vacation:'В отпуске',fired:'Уволен',maintenance:'На ТО',decommissioned:'Списан'};
+  const statusChip={active:'c-green',vacation:'c-amber',fired:'c-red',maintenance:'c-amber',decommissioned:'c-red'};
+
+  // Driver cards list
+  const driverCards=FOLDER_DRIVERS.map((d,i)=>`
+    <div class="fld-detail" style="margin-bottom:14px" id="${prefix}-drv-${i}">
+      <div class="fld-head">
+        <div class="fld-av" style="background:${['var(--green-100)','var(--blue-100)','var(--amber-100)','var(--purple-100)','var(--red-100)'][i%5]};color:${['var(--green-700)','var(--blue-700)','var(--amber-700)','var(--purple-700)','var(--red-700)'][i%5]}">${d.initials}</div>
+        <div><div class="fld-name">${d.name}</div><div class="fld-role">Водитель · ${d.park} · Таб. ${d.tab}</div></div>
+        <div class="fld-status"><span class="chip ${statusChip[d.status]}">${statusLabel[d.status]}</span></div>
+      </div>
+      <div class="fld-body">
+        <div class="fld-section">
+          <div class="fld-sec-title">${icon('user','i-sm')} Личные данные</div>
+          <div class="fld-row"><span class="fld-row-l">ФИО</span><span class="fld-row-v">${d.name}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Табельный №</span><span class="fld-row-v">${d.tab}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Телефон</span><span class="fld-row-v">${d.phone}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Вод. удостоверение</span><span class="fld-row-v" style="font-size:10px">${d.license}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Закреплённое ТС</span><span class="fld-row-v"><span class="fld-link">${d.vehicle}</span></span></div>
+          <div class="fld-row"><span class="fld-row-l">Статус</span><span class="fld-row-v"><span class="chip ${statusChip[d.status]}" style="font-size:9px">${statusLabel[d.status]}</span></span></div>
+        </div>
+        <div class="fld-section">
+          <div class="fld-sec-title">${icon('barChart','i-sm')} Статистика рейсов</div>
+          <div class="fld-row"><span class="fld-row-l">Всего рейсов</span><span class="fld-row-v">${d.trips.toLocaleString('ru')}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Общий пробег</span><span class="fld-row-v">${d.km} км</span></div>
+          <div class="fld-row"><span class="fld-row-l">Часы на линии</span><span class="fld-row-v">${d.hours} ч</span></div>
+          <div class="fld-row"><span class="fld-row-l">Рейтинг</span><span class="fld-row-v" style="color:${d.rating>=4.5?'var(--green)':d.rating>=4?'var(--blue)':'var(--amber)'}">★ ${d.rating}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Ср. рейсов/мес</span><span class="fld-row-v">${Math.round(d.trips/24)}</span></div>
+        </div>
+        <div class="fld-section">
+          <div class="fld-sec-title">${icon('alertCircle','i-sm')} Нарушения и штрафы</div>
+          <div class="fld-row"><span class="fld-row-l">Штрафов (всего)</span><span class="fld-row-v" style="color:${d.fines>0?'var(--red)':'var(--green)'}">${d.fines}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Сумма штрафов</span><span class="fld-row-v">${d.fineSum} ₸</span></div>
+          <div class="fld-row"><span class="fld-row-l">Нарушений ПДД</span><span class="fld-row-v">${d.fines}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Предупреждения</span><span class="fld-row-v">${d.fines>1?d.fines-1:0}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Категория риска</span><span class="fld-row-v"><span class="chip ${d.fines>=3?'c-red':d.fines>=1?'c-amber':'c-green'}" style="font-size:9px">${d.fines>=3?'Высокий':d.fines>=1?'Средний':'Низкий'}</span></span></div>
+        </div>
+      </div>
+    </div>`).join('');
+
+  // Vehicle cards list
+  const vehicleCards=FOLDER_VEHICLES.map((v,i)=>`
+    <div class="fld-detail" style="margin-bottom:14px">
+      <div class="fld-head">
+        <div class="fld-av" style="background:var(--slate-100);color:var(--slate-600);border-radius:var(--r);font-size:12px">${icon('truck')}</div>
+        <div><div class="fld-name">${v.plate} · ${v.model}</div><div class="fld-role">${v.year} г. · ${v.park} · Пробег: ${v.mileage} км</div></div>
+        <div class="fld-status"><span class="chip ${statusChip[v.status]}">${statusLabel[v.status]||v.status}</span></div>
+      </div>
+      <div class="fld-body">
+        <div class="fld-section">
+          <div class="fld-sec-title">${icon('truck','i-sm')} Данные ТС</div>
+          <div class="fld-row"><span class="fld-row-l">Гос. номер</span><span class="fld-row-v">${v.plate}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Модель</span><span class="fld-row-v">${v.model}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Год выпуска</span><span class="fld-row-v">${v.year}</span></div>
+          <div class="fld-row"><span class="fld-row-l">VIN</span><span class="fld-row-v" style="font-size:9px">${v.vin}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Водитель</span><span class="fld-row-v">${v.driver!=='—'?'<span class="fld-link">'+v.driver+'</span>':v.driver}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Топливо / Бак</span><span class="fld-row-v">${v.fuel} · ${v.tank}</span></div>
+        </div>
+        <div class="fld-section">
+          <div class="fld-sec-title">${icon('wrench','i-sm')} Тех. обслуживание</div>
+          <div class="fld-row"><span class="fld-row-l">Пробег</span><span class="fld-row-v">${v.mileage} км</span></div>
+          <div class="fld-row"><span class="fld-row-l">Последнее ТО</span><span class="fld-row-v">${v.lastTO}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Следующее ТО</span><span class="fld-row-v" style="color:${v.nextTO==='На ТО'?'var(--amber)':'var(--text-1)'}">${v.nextTO}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Техосмотр</span><span class="fld-row-v">${v.techInsp}</span></div>
+        </div>
+        <div class="fld-section">
+          <div class="fld-sec-title">${icon('shield','i-sm')} Документы</div>
+          <div class="fld-row"><span class="fld-row-l">Страховка (ОГПО)</span><span class="fld-row-v" style="color:${v.insurance==='истёк'?'var(--red)':'var(--text-1)'}">${v.insurance}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Техосмотр</span><span class="fld-row-v" style="color:${v.techInsp==='истёк'?'var(--red)':'var(--text-1)'}">${v.techInsp}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Автопарк</span><span class="fld-row-v">${v.park}</span></div>
+          <div class="fld-row"><span class="fld-row-l">Статус</span><span class="fld-row-v"><span class="chip ${statusChip[v.status]}" style="font-size:9px">${statusLabel[v.status]||v.status}</span></span></div>
+        </div>
+      </div>
+    </div>`).join('');
+
+  // Tab switching JS embedded via onclick
+  const tabSwitch=`onclick="this.parentElement.querySelectorAll('.folder-tab').forEach(t=>t.classList.remove('on'));this.classList.add('on');const p=this.closest('.page').querySelectorAll('.folder-panel');p.forEach(x=>x.classList.remove('on'));p[Array.from(this.parentElement.children).indexOf(this)].classList.add('on')"`;
+
+  if(!showDriverTab){
+    // Mechanic — only Transport tab
+    return `
+      <div class="card" style="margin-bottom:14px">
+        <div class="ch"><div class="ct">${icon('folderOpen','i-sm')} Картотека транспорта</div>
+          <div style="display:flex;gap:6px">
+            <div class="top-search" style="position:relative">${icon('search','i-sm')}<input placeholder="Поиск ТС..." style="width:160px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:11px;background:var(--bg);outline:none"></div>
+          </div>
+        </div>
+      </div>
+      ${vehicleCards}`;
+  }
+
+  return `
+    <div class="folder-tabs">
+      <div class="folder-tab on" ${tabSwitch}>${icon('user','i-sm')} Водитель</div>
+      <div class="folder-tab" ${tabSwitch}>${icon('truck','i-sm')} Транспорт</div>
+    </div>
+    <div class="folder-panel on">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:14px;font-weight:700">${icon('users','i-sm')} Водители</span>
+          <span class="chip c-blue">${FOLDER_DRIVERS.length} записей</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <div class="top-search" style="position:relative">${icon('search','i-sm')}<input placeholder="Поиск водителя..." style="width:180px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:11px;background:var(--bg);outline:none"></div>
+          <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">${icon('download','i-sm')} Экспорт</button>
+        </div>
+      </div>
+      ${driverCards}
+    </div>
+    <div class="folder-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:14px;font-weight:700">${icon('truck','i-sm')} Транспорт</span>
+          <span class="chip c-blue">${FOLDER_VEHICLES.length} единиц</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <div class="top-search" style="position:relative">${icon('search','i-sm')}<input placeholder="Поиск ТС..." style="width:180px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:11px;background:var(--bg);outline:none"></div>
+          <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">${icon('download','i-sm')} Экспорт</button>
+        </div>
+      </div>
+      ${vehicleCards}
+    </div>`;
+}
 
 function buildScheduleHTML(){
   const daysInMonth=new Date(schYear,schMonth,0).getDate();
@@ -817,6 +994,7 @@ function buildApp(){
       {id:'gen-staff',icon:'users',label:'Сотрудники'},
       {id:'gen-fines',icon:'alertCircle',label:'Штрафы',badge:'5'},
       {id:'gen-fuel',icon:'fuel',label:'Топливо'},
+      {id:'gen-folder',icon:'folderOpen',label:'Картотека'},
       {id:'gen-notif',icon:'bell',label:'Уведомления',badge:'3',bw:true},
     ],
     supervisor:[
@@ -826,6 +1004,7 @@ function buildApp(){
       {id:'sup-staff',icon:'users',label:'Сотрудники'},
       {id:'sup-fines',icon:'alertCircle',label:'Штрафы',badge:'3'},
       {id:'sup-fuel',icon:'fuel',label:'Топливо'},
+      {id:'sup-folder',icon:'folderOpen',label:'Картотека'},
       {id:'sup-notif',icon:'bell',label:'Уведомления',badge:'2',bw:true},
     ],
     head:[
@@ -839,6 +1018,7 @@ function buildApp(){
       {id:'head-fines',icon:'alertCircle',label:'Штрафы',badge:'3'},
       {id:'head-fuel',icon:'fuel',label:'Топливо'},
       {id:'head-1c',icon:'arrowLR',label:'Интеграция 1С'},
+      {id:'head-folder',icon:'folderOpen',label:'Картотека'},
       {id:'head-notif',icon:'bell',label:'Уведомления',badge:'5',bw:true},
     ],
     dispatcher:[
@@ -847,12 +1027,14 @@ function buildApp(){
       {id:'disp-clearance',icon:'shield',label:'Допуск',badge:'3'},
       {id:'disp-fines',icon:'alertCircle',label:'Штрафы',badge:'2'},
       {id:'disp-fuel',icon:'fuel',label:'Топливо'},
+      {id:'disp-folder',icon:'folderOpen',label:'Картотека'},
       {id:'disp-notif',icon:'bell',label:'Уведомления',badge:'4',bw:true},
     ],
     mechanic:[
       {id:'mech-inspect',icon:'wrench',label:'ТО и осмотр',on:true},
       {id:'mech-queue',icon:'clock',label:'Очередь'},
       {id:'mech-history',icon:'clock',label:'История'},
+      {id:'mech-folder',icon:'folderOpen',label:'Картотека'},
       {id:'mech-notif',icon:'bell',label:'Уведомления',badge:'2',bw:true},
     ],
     doctor:[
@@ -1294,6 +1476,7 @@ function buildPages(role,notifs){
     </div>
     <div class="page" id="pg-gen-fines"><div class="card"><div class="ch"><div class="ct">${icon('alertCircle','i-sm')} Штрафы</div></div><div class="cb" style="color:var(--muted);font-size:13px">Сводка штрафов по всем автопаркам</div></div></div>
     <div class="page" id="pg-gen-fuel"><div class="card"><div class="ch"><div class="ct">${icon('fuel','i-sm')} Топливо</div></div><div class="cb" style="color:var(--muted);font-size:13px">Общая статистика топлива</div></div></div>
+    <div class="page" id="pg-gen-folder">${buildFolderHTML('gen',true)}</div>
     `;
   }
 
@@ -1379,6 +1562,7 @@ function buildPages(role,notifs){
     </div>
     <div class="page" id="pg-sup-fines"><div class="card"><div class="ch"><div class="ct">${icon('alertCircle','i-sm')} Штрафы</div></div><div class="cb" style="color:var(--muted);font-size:13px">Штрафы по моим паркам</div></div></div>
     <div class="page" id="pg-sup-fuel"><div class="card"><div class="ch"><div class="ct">${icon('fuel','i-sm')} Топливо</div></div><div class="cb" style="color:var(--muted);font-size:13px">Топливо по моим паркам</div></div></div>
+    <div class="page" id="pg-sup-folder">${buildFolderHTML('sup',true)}</div>
     `;
   }
 
@@ -1810,6 +1994,7 @@ function buildPages(role,notifs){
         </div>
       </div>
     </div>
+    <div class="page" id="pg-head-folder">${buildFolderHTML('head',true)}</div>
     `;
   }
 
@@ -1877,6 +2062,7 @@ function buildPages(role,notifs){
       </div>
     </div>
     <div class="page" id="pg-disp-fuel"><div class="card"><div class="ch"><div class="ct">${icon('fuel','i-sm')} Топливо</div></div><div class="cb" style="color:var(--muted);font-size:13px">Контроль топлива</div></div></div>
+    <div class="page" id="pg-disp-folder">${buildFolderHTML('disp',true)}</div>
     `;
   }
 
@@ -1898,6 +2084,7 @@ function buildPages(role,notifs){
     </div>
     <div class="page" id="pg-mech-queue"><div class="card"><div class="ch"><div class="ct">${icon('clock','i-sm')} Очередь на ТО</div></div><div class="cb" style="color:var(--muted);font-size:13px">Список ожидающих техосмотра</div></div></div>
     <div class="page" id="pg-mech-history"><div class="card"><div class="ch"><div class="ct">${icon('clock','i-sm')} История осмотров</div></div><div class="cb" style="color:var(--muted);font-size:13px">Архив проведённых осмотров</div></div></div>
+    <div class="page" id="pg-mech-folder">${buildFolderHTML('mech',false)}</div>
     `;
   }
 
