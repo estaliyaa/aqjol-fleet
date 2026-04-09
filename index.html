@@ -975,7 +975,34 @@ function buildFolderHTML(prefix,showDriverTab){
         </div>
       </div>
 
-      <!-- Block 2: Trip Statistics -->
+      <!-- Block 2: Documents -->
+      <div class="fld-block">
+        <div class="fld-block-h"><div class="fld-block-title">${icon('layers','i-sm')} Документы</div><span class="chip c-green">Все действительны</span></div>
+        <div class="fld-block-body" style="padding:12px 16px">
+          ${[
+            {name:'Паспорт РК',num:'N'+String(7000000+i*123456).substring(0,7),exp:'—',ic:'user',color:'blue',file:'passport_scan.pdf'},
+            {name:'Удостоверение личности',num:'ИИН '+(860000000000+i*1100000000),exp:'до 2032',ic:'shield',color:'blue',file:'id_card.pdf'},
+            {name:'Водительское удостоверение',num:d.license,exp:'до '+d.licenseExp,ic:'truck',color:'green',file:'driver_license.pdf'},
+            {name:'Трудовой договор',num:'ТД-'+d.tab.replace('№','')+'/'+d.hireDate.substring(6),exp:'бессрочный',ic:'edit',color:'purple',file:'contract.pdf'},
+            {name:'Медицинская справка (форма 083)',num:'МС-2026-'+String(100+i),exp:'до 08.2026',ic:'heartPulse',color:'green',file:'medical_cert.pdf'},
+            {name:'Справка о несудимости',num:'СН-'+String(2026)+'-'+String(400+i),exp:'до 04.2027',ic:'shield',color:'slate',file:'no_criminal.pdf'},
+          ].map(doc=>`
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);margin-bottom:6px;transition:all .12s;cursor:default" onmouseover="this.style.borderColor='var(--${doc.color}-200)';this.style.boxShadow='var(--shadow)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+            <div style="width:34px;height:34px;border-radius:var(--r);background:var(--${doc.color}-50);color:var(--${doc.color});display:flex;align-items:center;justify-content:center;flex-shrink:0">${icon(doc.ic,'i-sm')}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:12px;font-weight:600">${doc.name}</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:1px">${doc.num}</div>
+            </div>
+            <span style="font-size:10px;color:var(--muted);flex-shrink:0">${doc.exp}</span>
+            <div style="display:flex;gap:4px;flex-shrink:0">
+              <span style="font-size:10px;color:var(--blue);cursor:pointer;display:flex;align-items:center;gap:3px">${icon('eye','i-sm')}</span>
+              <span style="font-size:10px;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:3px">${icon('download','i-sm')}</span>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Block 3: Trip Statistics -->
       <div class="fld-block">
         <div class="fld-block-h"><div class="fld-block-title">${icon('barChart','i-sm')} Статистика рейсов</div><span class="chip c-blue">★ ${d.rating}</span></div>
         <div class="fld-block-body">
@@ -990,7 +1017,7 @@ function buildFolderHTML(prefix,showDriverTab){
         </div>
       </div>
 
-      <!-- Block 3: Fines -->
+      <!-- Block 4: Fines -->
       <div class="fld-block">
         <div class="fld-block-h">
           <div class="fld-block-title">${icon('alertCircle','i-sm')} Штрафы и нарушения</div>
@@ -1003,7 +1030,7 @@ function buildFolderHTML(prefix,showDriverTab){
         <div class="fld-block-body" style="padding:12px 16px">${fineCards}</div>
       </div>
 
-      <!-- Block 4: DTP -->
+      <!-- Block 5: DTP -->
       <div class="fld-block">
         <div class="fld-block-h">
           <div class="fld-block-title">${icon('alertTriangle','i-sm')} ДТП (Дорожно-транспортные происшествия)</div>
