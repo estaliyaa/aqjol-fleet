@@ -419,20 +419,53 @@ table.dt{width:100%;border-collapse:collapse;font-size:12px}
 .fld-detail-page{display:none}.fld-detail-page.on{display:block}
 .fld-back{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--text-2);cursor:pointer;margin-bottom:16px;padding:6px 12px;border-radius:var(--r);border:1px solid var(--border);background:var(--white);transition:all .1s}
 .fld-back:hover{background:var(--bg);color:var(--text-1)}
-.fld-detail{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
-.fld-head{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--border)}
-.fld-name{font-size:16px;font-weight:700;letter-spacing:-.2px}
-.fld-role{font-size:11px;color:var(--muted);margin-top:2px}
-.fld-status{margin-left:auto;flex-shrink:0}
-.fld-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
-.fld-section{padding:18px 24px;border-right:1px solid var(--border)}
-.fld-section:last-child{border-right:none}
-.fld-sec-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:5px}
-.fld-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bg-2)}
-.fld-row:last-child{border-bottom:none}
-.fld-row-l{font-size:11px;color:var(--text-2)}
-.fld-row-v{font-size:11px;font-weight:600;color:var(--text-1);text-align:right;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Block card */
+.fld-block{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:14px}
+.fld-block-h{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.fld-block-title{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.fld-block-body{padding:18px 20px}
+/* Profile header */
+.fld-profile{display:flex;gap:24px;align-items:flex-start}
+.fld-avatar-lg{width:80px;height:80px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;flex-shrink:0;position:relative;overflow:hidden}
+.fld-avatar-lg img{width:100%;height:100%;object-fit:cover}
+.fld-profile-info{flex:1;min-width:0}
+.fld-profile-name{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:2px}
+.fld-profile-sub{font-size:12px;color:var(--muted)}
+.fld-profile-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.fld-profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin-top:14px}
+.fld-pg-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bg-2)}
+.fld-pg-label{font-size:11px;color:var(--text-2)}
+.fld-pg-value{font-size:11px;font-weight:600;color:var(--text-1)}
+/* Stats bar chart */
+.fld-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.fld-stat-item{text-align:center;padding:12px 8px;background:var(--bg);border-radius:var(--r);border:1px solid var(--border)}
+.fld-stat-val{font-size:20px;font-weight:800;letter-spacing:-.5px}
+.fld-stat-label{font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.3px;margin-top:2px}
+/* Fine mini card */
+.fld-fine-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .15s;margin-bottom:8px}
+.fld-fine-card:hover{border-color:var(--red-200);box-shadow:0 2px 8px rgba(220,38,38,.08);transform:translateY(-1px)}
+.fld-fine-card:last-child{margin-bottom:0}
+.fld-fine-ic{width:36px;height:36px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fld-fine-info{flex:1;min-width:0}
+.fld-fine-title{font-size:12px;font-weight:600}
+.fld-fine-meta{font-size:10px;color:var(--muted);margin-top:1px}
+.fld-fine-amount{font-size:13px;font-weight:800;color:var(--red);text-align:right;flex-shrink:0}
+.fld-fine-amount small{display:block;font-size:10px;font-weight:500;color:var(--green)}
+/* DTP card */
+.fld-dtp-card{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .15s;margin-bottom:8px}
+.fld-dtp-card:hover{border-color:var(--amber-200);box-shadow:0 2px 8px rgba(217,119,6,.08);transform:translateY(-1px)}
+.fld-dtp-card:last-child{margin-bottom:0}
+.fld-dtp-verdict{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.2px;flex-shrink:0}
+.fld-dtp-verdict.guilty{background:var(--red-50);color:var(--red);border:1px solid var(--red-100)}
+.fld-dtp-verdict.innocent{background:var(--green-50);color:var(--green);border:1px solid var(--green-100)}
 .fld-link{color:var(--blue);cursor:pointer;text-decoration:none}.fld-link:hover{text-decoration:underline}
+/* Right-side modal for fines/DTP */
+.fld-modal-overlay{position:fixed;inset:0;z-index:500;pointer-events:none;display:flex;justify-content:flex-end}
+.fld-modal-overlay.open{pointer-events:all}
+.fld-modal-overlay .nd-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;transition:opacity .22s}
+.fld-modal-overlay.open .nd-backdrop{opacity:1}
+.fld-modal-sheet{position:relative;width:520px;max-width:96vw;height:100%;background:var(--white);border-left:1px solid var(--border);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;z-index:1;box-shadow:-8px 0 32px rgba(0,0,0,.08)}
+.fld-modal-overlay.open .fld-modal-sheet{transform:translateX(0)}
 
 /* View-as read-only mode — hide action buttons */
 .view-only .btn-blue,.view-only .btn-dark,.view-only .btn-danger,.view-only .btn-ghost,.view-only .sos-btn,.view-only .e-send{display:none!important}
@@ -689,18 +722,46 @@ function initSchedule(){
 }
 initSchedule();
 
-// ── Folder (Картотека) data ──
+// ── Досье data ──
 const FOLDER_DRIVERS=[
-  {name:'Садыков Кайрат А.',initials:'СК',tab:'№22',phone:'+7 701 234-56-78',license:'KZ 07 №456123, до 15.09.2028',vehicle:'317-АЛА',status:'active',color:'var(--green)',trips:1842,km:'128 400',hours:'6 120',rating:4.8,fines:2,fineSum:'33 000',park:'АТП-1'},
-  {name:'Нурланов Руслан К.',initials:'НР',tab:'№14',phone:'+7 702 345-67-89',license:'KZ 07 №781234, до 03.12.2027',vehicle:'204-АЛА',status:'active',color:'var(--green)',trips:2105,km:'145 200',hours:'7 340',rating:4.9,fines:1,fineSum:'24 000',park:'АТП-1'},
-  {name:'Жаксыбеков Арман С.',initials:'ЖА',tab:'№36',phone:'+7 705 456-78-90',license:'KZ 07 №234567, до 20.06.2029',vehicle:'109-АЛА',status:'active',color:'var(--green)',trips:1456,km:'98 700',hours:'5 230',rating:4.6,fines:1,fineSum:'5 000',park:'АТП-1'},
-  {name:'Байжанов Серик Т.',initials:'БС',tab:'№08',phone:'+7 707 567-89-01',license:'KZ 07 №345678, до 11.03.2028',vehicle:'156-АЛА',status:'active',color:'var(--green)',trips:1678,km:'112 300',hours:'5 890',rating:4.7,fines:0,fineSum:'0',park:'АТП-1'},
-  {name:'Амиров Дастан К.',initials:'АД',tab:'№41',phone:'+7 700 678-90-12',license:'KZ 07 №567890, до 25.01.2027',vehicle:'228-АЛА',status:'active',color:'var(--green)',trips:1234,km:'85 600',hours:'4 670',rating:4.3,fines:0,fineSum:'0',park:'АТП-2'},
-  {name:'Мусин Ерлан Б.',initials:'МЕ',tab:'№19',phone:'+7 708 789-01-23',license:'KZ 07 №678901, до 08.07.2028',vehicle:'391-АЛА',status:'vacation',color:'var(--amber)',trips:1567,km:'108 100',hours:'5 560',rating:4.4,fines:1,fineSum:'6 000',park:'АТП-1'},
-  {name:'Ермеков Канат Б.',initials:'ЕК',tab:'№27',phone:'+7 771 890-12-34',license:'KZ 07 №789012, до 14.11.2026',vehicle:'078-АЛА',status:'active',color:'var(--green)',trips:1890,km:'131 200',hours:'6 450',rating:4.5,fines:1,fineSum:'8 000',park:'АТП-2'},
-  {name:'Токтаров Алмас М.',initials:'ТА',tab:'№33',phone:'+7 776 901-23-45',license:'KZ 07 №890123, до 19.04.2029',vehicle:'502-АЛА',status:'fired',color:'var(--red)',trips:956,km:'64 300',hours:'3 210',rating:3.9,fines:3,fineSum:'42 000',park:'АТП-1'},
-  {name:'Сагинбаев Олжас Р.',initials:'СО',tab:'№05',phone:'+7 747 012-34-56',license:'KZ 07 №012345, до 22.08.2027',vehicle:'445-АЛА',status:'active',color:'var(--green)',trips:2340,km:'162 500',hours:'8 120',rating:4.9,fines:0,fineSum:'0',park:'АТП-2'},
-  {name:'Бекмуратов Дамир Н.',initials:'БД',tab:'№47',phone:'+7 702 123-45-67',license:'KZ 07 №901234, до 30.05.2028',vehicle:'612-АЛА',status:'vacation',color:'var(--amber)',trips:1123,km:'77 800',hours:'4 120',rating:4.2,fines:0,fineSum:'0',park:'АТП-2'},
+  {name:'Садыков Кайрат А.',initials:'СК',tab:'№22',phone:'+7 701 234-56-78',license:'KZ 07 №456123',licenseExp:'15.09.2028',cat:'D, DE',vehicle:'317-АЛА',status:'active',trips:1842,km:'128 400',hours:'6 120',rating:4.8,exp:'10 лет',park:'АТП-1',avgMonth:[142,156,138,167,151,148,160],
+    finesList:[
+      {type:'Превышение скорости (20–40 км/ч)',date:'08.04.2026',place:'ул. Абая 12',vehicle:'317-АЛА',amount:18000,discount:9000,days:3,proto:'АП №07-2026-04-0812',status:'active'},
+      {type:'Нарушение разметки',date:'15.03.2026',place:'пр. Аль-Фараби 45',vehicle:'317-АЛА',amount:15000,discount:7500,days:0,proto:'АП №07-2026-03-1534',status:'paid'}
+    ],
+    dtpList:[
+      {date:'08.04.2026',place:'ул. Абая 12, Алматы',type:'Столкновение',damage:'Передний бампер, левое крыло',otherParty:'Toyota Camry, 725 ALA',verdict:'innocent',proto:'ДТП №07-2026-0412',judge:'Сулейменов А.К.',decision:'Виновник — второй участник. Нарушение п. 13.4 ПДД РК.'}
+    ]},
+  {name:'Нурланов Руслан К.',initials:'НР',tab:'№14',phone:'+7 702 345-67-89',license:'KZ 07 №781234',licenseExp:'03.12.2027',cat:'D',vehicle:'204-АЛА',status:'active',trips:2105,km:'145 200',hours:'7 340',rating:4.9,exp:'12 лет',park:'АТП-1',avgMonth:[168,172,155,180,163,170,175],
+    finesList:[
+      {type:'Проезд на красный сигнал',date:'05.04.2026',place:'пр. Аль-Фараби',vehicle:'204-АЛА',amount:24000,discount:12000,days:6,proto:'АП №07-2026-04-0523',status:'active'}
+    ],dtpList:[]},
+  {name:'Жаксыбеков Арман С.',initials:'ЖА',tab:'№36',phone:'+7 705 456-78-90',license:'KZ 07 №234567',licenseExp:'20.06.2029',cat:'D',vehicle:'109-АЛА',status:'active',trips:1456,km:'98 700',hours:'5 230',rating:4.6,exp:'7 лет',park:'АТП-1',avgMonth:[120,134,128,142,136,130,138],
+    finesList:[
+      {type:'Нарушение разметки',date:'06.04.2026',place:'ул. Толе Би',vehicle:'109-АЛА',amount:5000,discount:2500,days:7,proto:'АП №07-2026-04-0615',status:'active'}
+    ],dtpList:[]},
+  {name:'Байжанов Серик Т.',initials:'БС',tab:'№08',phone:'+7 707 567-89-01',license:'KZ 07 №345678',licenseExp:'11.03.2028',cat:'D, DE',vehicle:'156-АЛА',status:'active',trips:1678,km:'112 300',hours:'5 890',rating:4.7,exp:'9 лет',park:'АТП-1',avgMonth:[135,148,140,155,142,138,150],finesList:[],dtpList:[]},
+  {name:'Амиров Дастан К.',initials:'АД',tab:'№41',phone:'+7 700 678-90-12',license:'KZ 07 №567890',licenseExp:'25.01.2027',cat:'D',vehicle:'228-АЛА',status:'active',trips:1234,km:'85 600',hours:'4 670',rating:4.3,exp:'5 лет',park:'АТП-2',avgMonth:[98,112,105,118,110,108,115],finesList:[],dtpList:[]},
+  {name:'Мусин Ерлан Б.',initials:'МЕ',tab:'№19',phone:'+7 708 789-01-23',license:'KZ 07 №678901',licenseExp:'08.07.2028',cat:'D',vehicle:'391-АЛА',status:'vacation',trips:1567,km:'108 100',hours:'5 560',rating:4.4,exp:'8 лет',park:'АТП-1',avgMonth:[125,138,130,145,132,128,140],
+    finesList:[
+      {type:'Парковка в неположенном месте',date:'01.04.2026',place:'ул. Жандосова 22',vehicle:'391-АЛА',amount:6000,discount:3000,days:0,proto:'АП №07-2026-04-0109',status:'paid'}
+    ],dtpList:[]},
+  {name:'Ермеков Канат Б.',initials:'ЕК',tab:'№27',phone:'+7 771 890-12-34',license:'KZ 07 №789012',licenseExp:'14.11.2026',cat:'D',vehicle:'078-АЛА',status:'active',trips:1890,km:'131 200',hours:'6 450',rating:4.5,exp:'11 лет',park:'АТП-2',avgMonth:[148,155,142,165,152,148,158],
+    finesList:[
+      {type:'Превышение скорости',date:'28.03.2026',place:'пр. Рыскулова',vehicle:'078-АЛА',amount:8000,discount:4000,days:0,proto:'АП №07-2026-03-2841',status:'paid'}
+    ],dtpList:[]},
+  {name:'Токтаров Алмас М.',initials:'ТА',tab:'№33',phone:'+7 776 901-23-45',license:'KZ 07 №890123',licenseExp:'19.04.2029',cat:'D, DE',vehicle:'502-АЛА',status:'fired',trips:956,km:'64 300',hours:'3 210',rating:3.9,exp:'4 года',park:'АТП-1',avgMonth:[78,85,72,90,82,75,88],
+    finesList:[
+      {type:'Превышение скорости (40+ км/ч)',date:'12.03.2026',place:'трасса Алматы-Бишкек',vehicle:'502-АЛА',amount:24000,discount:12000,days:0,proto:'АП №07-2026-03-1245',status:'paid'},
+      {type:'Проезд на красный',date:'25.02.2026',place:'ул. Тимирязева 42',vehicle:'502-АЛА',amount:12000,discount:6000,days:0,proto:'АП №07-2026-02-2518',status:'paid'},
+      {type:'Нарушение ПДД при перестроении',date:'10.01.2026',place:'пр. Суюнбая',vehicle:'502-АЛА',amount:6000,discount:3000,days:0,proto:'АП №07-2026-01-1033',status:'paid'}
+    ],
+    dtpList:[
+      {date:'05.03.2026',place:'трасса Алматы-Бишкек, 42 км',type:'Столкновение',damage:'Лобовое, кузов, рама',otherParty:'Hyundai County, 812 BPP',verdict:'guilty',proto:'ДТП №07-2026-0305',judge:'Ахметова Г.С.',decision:'Нарушение п. 10.1 ПДД РК — несоблюдение скоростного режима. Лишение прав на 3 мес.'},
+      {date:'18.12.2025',place:'ул. Розыбакиева 28, Алматы',type:'Наезд на препятствие',damage:'Правое зеркало, дверь',otherParty:'—',verdict:'guilty',proto:'ДТП №07-2025-1218',judge:'Касымов Б.Т.',decision:'Нарушение п. 9.10 ПДД РК — несоблюдение дистанции.'}
+    ]},
+  {name:'Сагинбаев Олжас Р.',initials:'СО',tab:'№05',phone:'+7 747 012-34-56',license:'KZ 07 №012345',licenseExp:'22.08.2027',cat:'D',vehicle:'445-АЛА',status:'active',trips:2340,km:'162 500',hours:'8 120',rating:4.9,exp:'14 лет',park:'АТП-2',avgMonth:[185,192,178,200,188,182,195],finesList:[],dtpList:[]},
+  {name:'Бекмуратов Дамир Н.',initials:'БД',tab:'№47',phone:'+7 702 123-45-67',license:'KZ 07 №901234',licenseExp:'30.05.2028',cat:'D',vehicle:'612-АЛА',status:'vacation',trips:1123,km:'77 800',hours:'4 120',rating:4.2,exp:'3 года',park:'АТП-2',avgMonth:[88,95,82,102,92,85,98],finesList:[],dtpList:[]},
 ];
 
 const FOLDER_VEHICLES=[
@@ -731,12 +792,19 @@ function closeFolderDetail(prefix){
   page.querySelectorAll('.fld-list-view').forEach(v=>v.style.display='');
   page.querySelectorAll('.folder-tabs').forEach(v=>v.style.display='');
 }
+function openFldModal(id){
+  const m=document.getElementById(id);if(m)m.classList.add('open');
+}
+function closeFldModal(id){
+  const m=document.getElementById(id);if(m)m.classList.remove('open');
+}
 
 function buildFolderHTML(prefix,showDriverTab){
   const statusLabel={active:'Активен',vacation:'В отпуске',fired:'Уволен',maintenance:'На ТО',decommissioned:'Списан'};
   const statusChip={active:'c-green',vacation:'c-amber',fired:'c-red',maintenance:'c-amber',decommissioned:'c-red'};
   const avBg=['var(--green-100)','var(--blue-100)','var(--amber-100)','var(--purple-100)','var(--red-100)'];
   const avFg=['var(--green-700)','var(--blue-700)','var(--amber-700)','var(--purple-700)','var(--red-700)'];
+  const monthLabels=['Окт','Ноя','Дек','Янв','Фев','Мар','Апр'];
 
   // --- DRIVER compact cards ---
   const driverCompact=FOLDER_DRIVERS.map((d,i)=>`
@@ -750,50 +818,203 @@ function buildFolderHTML(prefix,showDriverTab){
         <div class="fld-card-info-item"><span class="fld-card-info-label">Рейтинг</span><span class="fld-card-info-val" style="color:${d.rating>=4.5?'var(--green)':d.rating>=4?'var(--blue)':'var(--amber)'}">★ ${d.rating}</span></div>
         <div class="fld-card-info-item"><span class="fld-card-info-label">Рейсов</span><span class="fld-card-info-val">${d.trips.toLocaleString('ru')}</span></div>
         <div class="fld-card-info-item"><span class="fld-card-info-label">Пробег</span><span class="fld-card-info-val">${d.km} км</span></div>
-        <div class="fld-card-info-item"><span class="fld-card-info-label">Штрафы</span><span class="fld-card-info-val" style="color:${d.fines>0?'var(--red)':'var(--green)'}">${d.fines}</span></div>
+        <div class="fld-card-info-item"><span class="fld-card-info-label">Штрафы</span><span class="fld-card-info-val" style="color:${d.finesList.length>0?'var(--red)':'var(--green)'}">${d.finesList.length}</span></div>
       </div>
       <div class="fld-card-cta">${icon('eye','i-sm')} Посмотреть</div>
     </div>`).join('');
 
-  // --- DRIVER detail pages ---
-  const driverDetails=FOLDER_DRIVERS.map((d,i)=>`
+  // --- DRIVER detail pages (vertical blocks) ---
+  const driverDetails=FOLDER_DRIVERS.map((d,i)=>{
+    const maxTrips=Math.max(...d.avgMonth);
+    const finesTotal=d.finesList.reduce((s,f)=>s+f.amount,0);
+    const finesPaid=d.finesList.filter(f=>f.status==='paid').length;
+
+    // Build chart bars
+    const chartBars=d.avgMonth.map((v,mi)=>`
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+        <div style="width:100%;height:80px;display:flex;align-items:flex-end">
+          <div style="width:100%;height:${Math.round(v/maxTrips*100)}%;background:${mi===6?'var(--blue)':'var(--blue-200)'};border-radius:4px 4px 0 0;min-height:4px;transition:height .3s"></div>
+        </div>
+        <span style="font-size:9px;color:${mi===6?'var(--blue)':'var(--muted)'};font-weight:${mi===6?'700':'500'}">${monthLabels[mi]}</span>
+        <span style="font-size:9px;font-weight:600;color:var(--text-2)">${v}</span>
+      </div>`).join('');
+
+    // Fine cards
+    const fineCards=d.finesList.length?d.finesList.map((f,fi)=>`
+      <div class="fld-fine-card" onclick="openFldModal('${prefix}-fine-modal-${i}-${fi}')">
+        <div class="fld-fine-ic" style="background:${f.status==='active'?'var(--red-50)':'var(--bg-2)'};color:${f.status==='active'?'var(--red)':'var(--muted)'}">${icon(f.status==='active'?'alertCircle':'check','i-sm')}</div>
+        <div class="fld-fine-info">
+          <div class="fld-fine-title">${f.type}</div>
+          <div class="fld-fine-meta">${f.date} · ${f.place} · ${f.vehicle}</div>
+          ${f.status==='active'&&f.days>0?'<span class="chip c-amber" style="font-size:9px;margin-top:3px">Льгота: '+f.days+' дн.</span>':f.status==='paid'?'<span class="chip c-green" style="font-size:9px;margin-top:3px">Оплачен</span>':''}
+        </div>
+        <div class="fld-fine-amount">${f.amount.toLocaleString('ru')} ₸${f.discount?'<small>'+f.discount.toLocaleString('ru')+' ₸ со ск.</small>':''}</div>
+        ${icon('chevRight','i-sm')}
+      </div>`).join(''):'<div style="text-align:center;padding:20px;color:var(--muted);font-size:12px">Штрафов нет</div>';
+
+    // Fine modals
+    const fineModals=d.finesList.map((f,fi)=>`
+      <div class="fld-modal-overlay" id="${prefix}-fine-modal-${i}-${fi}">
+        <div class="nd-backdrop" onclick="closeFldModal('${prefix}-fine-modal-${i}-${fi}')"></div>
+        <div class="fld-modal-sheet">
+          <div class="nd-hdr">
+            <div class="nd-hdr-ic" style="background:var(--red-50);color:var(--red)">${icon('alertCircle','i-sm')}</div>
+            <div class="nd-hdr-info"><div class="nd-hdr-title">${f.type}</div><div class="nd-hdr-sub">${f.proto}</div></div>
+            <button class="nd-close" onclick="closeFldModal('${prefix}-fine-modal-${i}-${fi}')">${icon('x','i-sm')}</button>
+          </div>
+          <div class="nd-body">
+            <div class="fine-doc">
+              <div class="fine-doc-hdr">
+                <div class="fine-doc-org">МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ РЕСПУБЛИКИ КАЗАХСТАН</div>
+                <div class="fine-doc-title">Постановление об административном правонарушении</div>
+                <div class="fine-doc-proto">${f.proto} от ${f.date}</div>
+              </div>
+              <div class="fine-doc-body">
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Водитель</span><span class="fine-doc-val">${d.name}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Транспорт</span><span class="fine-doc-val">${f.vehicle}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Нарушение</span><span class="fine-doc-val">${f.type}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Место</span><span class="fine-doc-val">${f.place}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Дата</span><span class="fine-doc-val">${f.date}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Статус</span><span class="fine-doc-val"><span class="chip ${f.status==='active'?'c-red':'c-green'}">${f.status==='active'?'К оплате':'Оплачен'}</span></span></div>
+              </div>
+              <div class="fine-doc-amount">
+                <div class="fine-doc-amount-col"><div class="fine-doc-amount-lbl">Сумма штрафа</div><div class="fine-doc-amount-val" style="color:var(--red)">${f.amount.toLocaleString('ru')} ₸</div></div>
+                <div class="fine-doc-divider"></div>
+                <div class="fine-doc-amount-col"><div class="fine-doc-amount-lbl">Со скидкой 50%</div><div class="fine-doc-amount-val" style="color:var(--green)">${f.discount.toLocaleString('ru')} ₸</div></div>
+              </div>
+              <div class="fine-doc-footer"><span style="font-size:11px;color:var(--muted)">${icon('printer','i-sm')} Распечатать</span><span style="margin-left:auto;font-size:11px;color:var(--muted)">${icon('download','i-sm')} Скачать PDF</span></div>
+            </div>
+          </div>
+        </div>
+      </div>`).join('');
+
+    // DTP cards
+    const dtpCards=d.dtpList.length?d.dtpList.map((a,ai)=>`
+      <div class="fld-dtp-card" onclick="openFldModal('${prefix}-dtp-modal-${i}-${ai}')">
+        <div class="fld-fine-ic" style="background:var(--amber-50);color:var(--amber)">${icon('alertTriangle','i-sm')}</div>
+        <div class="fld-fine-info">
+          <div class="fld-fine-title">${a.type} — ${a.date}</div>
+          <div class="fld-fine-meta">${a.place}</div>
+          <div style="margin-top:4px"><span class="fld-fine-meta">Второй участник: ${a.otherParty}</span></div>
+        </div>
+        <div class="fld-dtp-verdict ${a.verdict}">${a.verdict==='guilty'?'Виновен':'Невиновен'}</div>
+        ${icon('chevRight','i-sm')}
+      </div>`).join(''):'<div style="text-align:center;padding:20px;color:var(--muted);font-size:12px">ДТП не зафиксировано</div>';
+
+    // DTP modals
+    const dtpModals=d.dtpList.map((a,ai)=>`
+      <div class="fld-modal-overlay" id="${prefix}-dtp-modal-${i}-${ai}">
+        <div class="nd-backdrop" onclick="closeFldModal('${prefix}-dtp-modal-${i}-${ai}')"></div>
+        <div class="fld-modal-sheet">
+          <div class="nd-hdr">
+            <div class="nd-hdr-ic" style="background:var(--amber-50);color:var(--amber)">${icon('alertTriangle','i-sm')}</div>
+            <div class="nd-hdr-info"><div class="nd-hdr-title">${a.type} — ${a.date}</div><div class="nd-hdr-sub">${a.proto}</div></div>
+            <button class="nd-close" onclick="closeFldModal('${prefix}-dtp-modal-${i}-${ai}')">${icon('x','i-sm')}</button>
+          </div>
+          <div class="nd-body">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 14px;border-radius:var(--r);background:${a.verdict==='guilty'?'var(--red-50)':'var(--green-50)'};border:1px solid ${a.verdict==='guilty'?'var(--red-100)':'var(--green-100)'}">
+              ${icon(a.verdict==='guilty'?'alertCircle':'checkCircle','i-sm')}
+              <div style="flex:1"><div style="font-size:13px;font-weight:700;color:${a.verdict==='guilty'?'var(--red)':'var(--green)'}">${a.verdict==='guilty'?'Виновен':'Невиновен'}</div><div style="font-size:11px;color:var(--text-2);margin-top:1px">Решение суда</div></div>
+            </div>
+            <div class="fine-doc">
+              <div class="fine-doc-hdr" style="background:var(--amber-800)">
+                <div class="fine-doc-org">ДОРОЖНАЯ ПОЛИЦИЯ · УПРАВЛЕНИЕ МВД РК</div>
+                <div class="fine-doc-title">Протокол дорожно-транспортного происшествия</div>
+                <div class="fine-doc-proto">${a.proto} от ${a.date}</div>
+              </div>
+              <div class="fine-doc-body">
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Водитель</span><span class="fine-doc-val">${d.name}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">ТС</span><span class="fine-doc-val">${d.vehicle}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Тип ДТП</span><span class="fine-doc-val">${a.type}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Место</span><span class="fine-doc-val">${a.place}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Повреждения</span><span class="fine-doc-val">${a.damage}</span></div>
+                <div class="fine-doc-row"><span class="fine-doc-lbl">Второй участник</span><span class="fine-doc-val">${a.otherParty}</span></div>
+              </div>
+              <div style="padding:14px 22px;border-top:1px solid var(--border)">
+                <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Схема ДТП</div>
+                <div style="height:120px;background:var(--bg);border:1px dashed var(--border);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px">
+                  ${icon('mapPin','i-sm')} Схема столкновения · ${a.place}
+                </div>
+              </div>
+              <div style="padding:14px 22px;border-top:1px solid var(--border)">
+                <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Решение судьи</div>
+                <div style="font-size:12px;color:var(--text-1);line-height:1.5"><b>${a.judge}</b>: ${a.decision}</div>
+              </div>
+              <div class="fine-doc-footer"><span style="font-size:11px;color:var(--muted)">${icon('printer','i-sm')} Распечатать</span><span style="margin-left:auto;font-size:11px;color:var(--muted)">${icon('download','i-sm')} Скачать PDF</span></div>
+            </div>
+          </div>
+        </div>
+      </div>`).join('');
+
+    return `
     <div class="fld-detail-page" id="${prefix}-drv-detail-${i}">
       <div class="fld-back" onclick="closeFolderDetail('${prefix}')">${icon('chevLeft','i-sm')} Назад к списку</div>
-      <div class="fld-detail">
-        <div class="fld-head">
-          <div class="fld-av" style="background:${avBg[i%5]};color:${avFg[i%5]};width:52px;height:52px;font-size:16px">${d.initials}</div>
-          <div><div class="fld-name">${d.name}</div><div class="fld-role">Водитель · ${d.park} · Таб. ${d.tab}</div></div>
-          <div class="fld-status"><span class="chip ${statusChip[d.status]}">${statusLabel[d.status]}</span></div>
-        </div>
-        <div class="fld-body">
-          <div class="fld-section">
-            <div class="fld-sec-title">${icon('user','i-sm')} Личные данные</div>
-            <div class="fld-row"><span class="fld-row-l">ФИО</span><span class="fld-row-v">${d.name}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Табельный №</span><span class="fld-row-v">${d.tab}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Телефон</span><span class="fld-row-v">${d.phone}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Вод. удостоверение</span><span class="fld-row-v" style="font-size:10px">${d.license}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Закреплённое ТС</span><span class="fld-row-v"><span class="fld-link">${d.vehicle}</span></span></div>
-            <div class="fld-row"><span class="fld-row-l">Статус</span><span class="fld-row-v"><span class="chip ${statusChip[d.status]}" style="font-size:9px">${statusLabel[d.status]}</span></span></div>
-          </div>
-          <div class="fld-section">
-            <div class="fld-sec-title">${icon('barChart','i-sm')} Статистика рейсов</div>
-            <div class="fld-row"><span class="fld-row-l">Всего рейсов</span><span class="fld-row-v">${d.trips.toLocaleString('ru')}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Общий пробег</span><span class="fld-row-v">${d.km} км</span></div>
-            <div class="fld-row"><span class="fld-row-l">Часы на линии</span><span class="fld-row-v">${d.hours} ч</span></div>
-            <div class="fld-row"><span class="fld-row-l">Рейтинг</span><span class="fld-row-v" style="color:${d.rating>=4.5?'var(--green)':d.rating>=4?'var(--blue)':'var(--amber)'}">★ ${d.rating}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Ср. рейсов/мес</span><span class="fld-row-v">${Math.round(d.trips/24)}</span></div>
-          </div>
-          <div class="fld-section">
-            <div class="fld-sec-title">${icon('alertCircle','i-sm')} Нарушения и штрафы</div>
-            <div class="fld-row"><span class="fld-row-l">Штрафов (всего)</span><span class="fld-row-v" style="color:${d.fines>0?'var(--red)':'var(--green)'}">${d.fines}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Сумма штрафов</span><span class="fld-row-v">${d.fineSum} ₸</span></div>
-            <div class="fld-row"><span class="fld-row-l">Нарушений ПДД</span><span class="fld-row-v">${d.fines}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Предупреждения</span><span class="fld-row-v">${d.fines>1?d.fines-1:0}</span></div>
-            <div class="fld-row"><span class="fld-row-l">Категория риска</span><span class="fld-row-v"><span class="chip ${d.fines>=3?'c-red':d.fines>=1?'c-amber':'c-green'}" style="font-size:9px">${d.fines>=3?'Высокий':d.fines>=1?'Средний':'Низкий'}</span></span></div>
+
+      <!-- Block 1: Personal Data -->
+      <div class="fld-block">
+        <div class="fld-block-body">
+          <div class="fld-profile">
+            <div class="fld-avatar-lg" style="background:${avBg[i%5]};color:${avFg[i%5]}">${d.initials}</div>
+            <div class="fld-profile-info">
+              <div class="fld-profile-name">${d.name}</div>
+              <div class="fld-profile-sub">Водитель · ${d.park} · Таб. ${d.tab}</div>
+              <div class="fld-profile-tags">
+                <span class="chip ${statusChip[d.status]}">${statusLabel[d.status]}</span>
+                <span class="chip c-blue">Стаж: ${d.exp}</span>
+                <span class="chip c-gray">Кат. ${d.cat}</span>
+              </div>
+              <div class="fld-profile-grid">
+                <div class="fld-pg-item"><span class="fld-pg-label">Телефон</span><span class="fld-pg-value">${d.phone}</span></div>
+                <div class="fld-pg-item"><span class="fld-pg-label">Вод. удостоверение</span><span class="fld-pg-value">${d.license}</span></div>
+                <div class="fld-pg-item"><span class="fld-pg-label">Действует до</span><span class="fld-pg-value">${d.licenseExp}</span></div>
+                <div class="fld-pg-item"><span class="fld-pg-label">Закреплённое ТС</span><span class="fld-pg-value"><span class="fld-link">${d.vehicle}</span></span></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>`).join('');
+
+      <!-- Block 2: Trip Statistics -->
+      <div class="fld-block">
+        <div class="fld-block-h"><div class="fld-block-title">${icon('barChart','i-sm')} Статистика рейсов</div><span class="chip c-blue">★ ${d.rating}</span></div>
+        <div class="fld-block-body">
+          <div class="fld-stat-grid">
+            <div class="fld-stat-item"><div class="fld-stat-val" style="color:var(--blue)">${d.trips.toLocaleString('ru')}</div><div class="fld-stat-label">Рейсов</div></div>
+            <div class="fld-stat-item"><div class="fld-stat-val">${d.km}</div><div class="fld-stat-label">км пробега</div></div>
+            <div class="fld-stat-item"><div class="fld-stat-val">${d.hours}</div><div class="fld-stat-label">часов</div></div>
+            <div class="fld-stat-item"><div class="fld-stat-val" style="color:var(--green)">${Math.round(d.trips/24)}</div><div class="fld-stat-label">рейсов/мес</div></div>
+          </div>
+          <div style="font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:8px">Рейсов за последние 7 месяцев</div>
+          <div style="display:flex;gap:6px;align-items:flex-end">${chartBars}</div>
+        </div>
+      </div>
+
+      <!-- Block 3: Fines -->
+      <div class="fld-block">
+        <div class="fld-block-h">
+          <div class="fld-block-title">${icon('alertCircle','i-sm')} Штрафы и нарушения</div>
+          <div style="display:flex;gap:6px">
+            ${d.finesList.length?'<span class="chip c-red">'+d.finesList.filter(f=>f.status==='active').length+' активных</span>':''}
+            ${finesPaid?'<span class="chip c-green">'+finesPaid+' оплач.</span>':''}
+            ${finesTotal?'<span style="font-size:11px;font-weight:700;color:var(--red)">'+finesTotal.toLocaleString('ru')+' ₸</span>':'<span class="chip c-green">Нет штрафов</span>'}
+          </div>
+        </div>
+        <div class="fld-block-body" style="padding:12px 16px">${fineCards}</div>
+      </div>
+
+      <!-- Block 4: DTP -->
+      <div class="fld-block">
+        <div class="fld-block-h">
+          <div class="fld-block-title">${icon('alertTriangle','i-sm')} ДТП (Дорожно-транспортные происшествия)</div>
+          <span class="chip ${d.dtpList.length?'c-amber':'c-green'}">${d.dtpList.length?d.dtpList.length+' случ.':'Нет ДТП'}</span>
+        </div>
+        <div class="fld-block-body" style="padding:12px 16px">${dtpCards}</div>
+      </div>
+
+      ${fineModals}
+      ${dtpModals}
+    </div>`;
+  }).join('');
 
   // --- VEHICLE compact cards ---
   const vehicleCompact=FOLDER_VEHICLES.map((v,i)=>`
@@ -1215,7 +1436,7 @@ function buildApp(){
       </header>
 
       <div class="scroll${origUser?' view-only':''}" id="scrollArea">
-        ${origUser?`<div class="view-only-banner">${icon('eye','i-sm')} Режим просмотра — ${curUser.rname}. Действия недоступны.</div>`:''}
+        ${''}<!-- view-as mode active, no banner -->
         ${buildPages(r,myNotifs)}
       </div>
     </div>
