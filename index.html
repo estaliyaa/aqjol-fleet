@@ -384,6 +384,16 @@ table.dt{width:100%;border-collapse:collapse;font-size:12px}
 .sch-legend-bar{display:flex;gap:14px;font-size:11px;color:var(--text-2);align-items:center;padding:10px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px}
 .sch-legend-bar .sch-legend-item{display:flex;align-items:center;gap:5px;font-weight:500}
 
+/* Driver / Employee cards */
+.drv-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.drv-card{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--border);border-radius:var(--r);transition:all .12s;cursor:default}
+.drv-card:hover{border-color:var(--blue-200);box-shadow:var(--shadow)}
+.drv-card-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.drv-card-info{flex:1;min-width:0;overflow:hidden}
+.drv-card-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drv-card-meta{font-size:10px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drv-card-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
+
 /* View-as read-only mode — hide action buttons */
 .view-only .btn-blue,.view-only .btn-dark,.view-only .btn-danger,.view-only .btn-ghost,.view-only .sos-btn,.view-only .e-send{display:none!important}
 .view-only .sch-gen-bar button{display:none!important}
@@ -813,6 +823,7 @@ function buildApp(){
       {id:'sup-stats',icon:'barChart',label:'Статистика',on:true},
       {id:'sup-parks',icon:'building',label:'Мои автопарки'},
       {id:'sup-vehicles',icon:'truck',label:'Транспорт'},
+      {id:'sup-staff',icon:'users',label:'Сотрудники'},
       {id:'sup-fines',icon:'alertCircle',label:'Штрафы',badge:'3'},
       {id:'sup-fuel',icon:'fuel',label:'Топливо'},
       {id:'sup-notif',icon:'bell',label:'Уведомления',badge:'2',bw:true},
@@ -1221,7 +1232,66 @@ function buildPages(role,notifs){
     </div>
     <div class="page" id="pg-gen-parks"><div class="card"><div class="ch"><div class="ct">${icon('building','i-sm')} Автопарки</div></div><div class="cb" style="color:var(--muted);font-size:13px">Детальная информация по каждому автопарку</div></div></div>
     <div class="page" id="pg-gen-vehicles"><div class="card"><div class="ch"><div class="ct">${icon('truck','i-sm')} Транспорт</div></div><div class="cb" style="color:var(--muted);font-size:13px">Общий реестр транспортных средств всех автопарков</div></div></div>
-    <div class="page" id="pg-gen-staff"><div class="card"><div class="ch"><div class="ct">${icon('users','i-sm')} Сотрудники</div></div><div class="cb" style="color:var(--muted);font-size:13px">Реестр сотрудников всех автопарков</div></div></div>
+    <div class="page" id="pg-gen-staff">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Всего сотрудников</div><div class="kpi-ic" style="background:var(--indigo-50);color:var(--indigo)">${icon('users','i-sm')}</div></div><div class="kpi-val">284</div><div class="kpi-d">все автопарки</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Водители</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div></div><div class="kpi-val">196</div><div class="kpi-d">4 автопарка</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">На смене сегодня</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('checkCircle','i-sm')}</div></div><div class="kpi-val" style="color:var(--green)">168</div><div class="kpi-d up">${icon('chevUp','i-sm')} 85.7%</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">В отпуске / б/л</div><div class="kpi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('calendar','i-sm')}</div></div><div class="kpi-val" style="color:var(--amber)">18</div><div class="kpi-d">9 отпуск · 9 б/л</div></div>
+      </div>
+      <div class="park-tabs" style="margin-bottom:14px">
+        <div class="park-tab on">Все автопарки</div>
+        <div class="park-tab">АТП-1 Алматы</div>
+        <div class="park-tab">АТП-2 Алматы</div>
+        <div class="park-tab">АТП-3 Алматы</div>
+        <div class="park-tab">АТП Астана</div>
+      </div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="ch">
+          <div class="ct">${icon('users','i-sm')} Водители</div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <div class="top-search" style="position:relative">${icon('search','i-sm')}<input placeholder="Поиск сотрудника..." style="width:180px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:11px;background:var(--bg);outline:none"></div>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:11px">${icon('download','i-sm')} Экспорт</button>
+          </div>
+        </div>
+        <div class="cb">
+          <div class="drv-cards">
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">СК</div><div class="drv-card-info"><div class="drv-card-name">Садыков Кайрат А.</div><div class="drv-card-meta">317-АЛА · №22 · стаж 10 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.8</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">НР</div><div class="drv-card-info"><div class="drv-card-name">Нурланов Руслан К.</div><div class="drv-card-meta">204-АЛА · №14 · стаж 12 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.9</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">ЖА</div><div class="drv-card-info"><div class="drv-card-name">Жаксыбеков Арман С.</div><div class="drv-card-meta">109-АЛА · №36 · стаж 7 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.6</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--amber-50);color:var(--amber)">БС</div><div class="drv-card-info"><div class="drv-card-name">Байжанов Серик Т.</div><div class="drv-card-meta">156-АЛА · стаж 8 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.7</span><span class="chip c-amber">Осмотр</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">АД</div><div class="drv-card-info"><div class="drv-card-name">Амиров Дамир К.</div><div class="drv-card-meta">228-АЛА · №11 · стаж 5 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--amber);font-weight:600">★ 4.2</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--red-50);color:var(--red)">ЕК</div><div class="drv-card-info"><div class="drv-card-name">Ермеков Канат Б.</div><div class="drv-card-meta">078-АЛА · стаж 6 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--red);font-weight:600">★ 3.8</span><span class="chip c-red">Недопуск</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">МЕ</div><div class="drv-card-info"><div class="drv-card-name">Мусин Ержан Б.</div><div class="drv-card-meta">391-АЛА · №9 · стаж 6 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.5</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">ТА</div><div class="drv-card-info"><div class="drv-card-name">Токтаров Алмас М.</div><div class="drv-card-meta">502-АЛА · №22 · стаж 4 года</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.4</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">СА</div><div class="drv-card-info"><div class="drv-card-name">Сагинбаев Кайрат Н.</div><div class="drv-card-meta">603-АЛА · №8 · стаж 9 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.6</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--green-50);color:var(--green)">РД</div><div class="drv-card-info"><div class="drv-card-name">Рахимов Дастан Б.</div><div class="drv-card-meta">714-АСТ · №3 · стаж 11 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.7</span><span class="chip c-green">Готов</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">КМ</div><div class="drv-card-info"><div class="drv-card-name">Курманов Медет А.</div><div class="drv-card-meta">825-АСТ · №5 · стаж 8 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.3</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--amber-50);color:var(--amber)">ОБ</div><div class="drv-card-info"><div class="drv-card-name">Оспанов Бахыт Т.</div><div class="drv-card-meta">936-АСТ · стаж 3 года</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--amber);font-weight:600">★ 4.0</span><span class="chip c-amber">Отпуск</span></div></div>
+          </div>
+          <div style="padding:10px 0 0;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center">
+            <span>Показано 12 из 196 водителей</span>
+            <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Показать всех →</button>
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card"><div class="ch"><div class="ct">${icon('building','i-sm')} Персонал по автопаркам</div></div><div style="overflow-x:auto"><table class="dt"><thead><tr><th>Автопарк</th><th>Водители</th><th>Диспетчеры</th><th>Механики</th><th>Врачи</th><th>Админ.</th><th>Всего</th></tr></thead><tbody>
+          <tr><td><b>АТП-1 Алматы</b></td><td>48</td><td>4</td><td>6</td><td>2</td><td>7</td><td><b>67</b></td></tr>
+          <tr><td><b>АТП-2 Алматы</b></td><td>52</td><td>5</td><td>7</td><td>2</td><td>8</td><td><b>74</b></td></tr>
+          <tr><td><b>АТП-3 Алматы</b></td><td>40</td><td>3</td><td>5</td><td>2</td><td>6</td><td><b>56</b></td></tr>
+          <tr><td><b>АТП Астана</b></td><td>56</td><td>5</td><td>8</td><td>3</td><td>9</td><td><b>81</b></td></tr>
+        </tbody></table></div></div>
+        <div class="card"><div class="ch"><div class="ct">${icon('barChart','i-sm')} Статистика</div></div><div class="cb">
+          <div class="sr"><span class="sr-l">Ср. стаж водителей</span><span class="sr-v">7.4 года</span></div>
+          <div class="sr"><span class="sr-l">Ср. рейтинг</span><span class="sr-v" style="color:var(--green)">★ 4.5</span></div>
+          <div class="sr"><span class="sr-l">Нарушений (мес)</span><span class="sr-v" style="color:var(--red)">12</span></div>
+          <div class="sr"><span class="sr-l">Текучесть (год)</span><span class="sr-v">7.2%</span></div>
+          <div class="sr"><span class="sr-l">Сертификация ТО</span><span class="sr-v" style="color:var(--green)">100%</span></div>
+          <div class="sr"><span class="sr-l">Медосмотры (мес)</span><span class="sr-v">3 820</span></div>
+        </div></div>
+      </div>
+    </div>
     <div class="page" id="pg-gen-fines"><div class="card"><div class="ch"><div class="ct">${icon('alertCircle','i-sm')} Штрафы</div></div><div class="cb" style="color:var(--muted);font-size:13px">Сводка штрафов по всем автопаркам</div></div></div>
     <div class="page" id="pg-gen-fuel"><div class="card"><div class="ch"><div class="ct">${icon('fuel','i-sm')} Топливо</div></div><div class="cb" style="color:var(--muted);font-size:13px">Общая статистика топлива</div></div></div>
     `;
@@ -1256,6 +1326,57 @@ function buildPages(role,notifs){
     </div>
     <div class="page" id="pg-sup-parks"><div class="card"><div class="ch"><div class="ct">${icon('building','i-sm')} Мои автопарки</div></div><div class="cb" style="color:var(--muted);font-size:13px">Управление автопарками</div></div></div>
     <div class="page" id="pg-sup-vehicles"><div class="card"><div class="ch"><div class="ct">${icon('truck','i-sm')} Транспорт</div></div><div class="cb" style="color:var(--muted);font-size:13px">Общий реестр</div></div></div>
+    <div class="page" id="pg-sup-staff">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Всего сотрудников</div><div class="kpi-ic" style="background:var(--purple-50);color:var(--purple)">${icon('users','i-sm')}</div></div><div class="kpi-val">141</div><div class="kpi-d">2 автопарка</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Водители</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div></div><div class="kpi-val">100</div><div class="kpi-d">АТП-1 + АТП-2</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">На смене сегодня</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('checkCircle','i-sm')}</div></div><div class="kpi-val" style="color:var(--green)">86</div><div class="kpi-d up">${icon('chevUp','i-sm')} 86%</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">В отпуске / б/л</div><div class="kpi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('calendar','i-sm')}</div></div><div class="kpi-val" style="color:var(--amber)">9</div><div class="kpi-d">4 отпуск · 5 б/л</div></div>
+      </div>
+      <div class="park-tabs" style="margin-bottom:14px">
+        <div class="park-tab on">Все мои парки</div>
+        <div class="park-tab">АТП-1 Алматы</div>
+        <div class="park-tab">АТП-2 Алматы</div>
+      </div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="ch">
+          <div class="ct">${icon('users','i-sm')} Водители</div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <div class="top-search" style="position:relative">${icon('search','i-sm')}<input placeholder="Поиск сотрудника..." style="width:180px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:11px;background:var(--bg);outline:none"></div>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:11px">${icon('download','i-sm')} Экспорт</button>
+          </div>
+        </div>
+        <div class="cb">
+          <div class="drv-cards">
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">СК</div><div class="drv-card-info"><div class="drv-card-name">Садыков Кайрат А.</div><div class="drv-card-meta">317-АЛА · №22 · АТП-1</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.8</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">НР</div><div class="drv-card-info"><div class="drv-card-name">Нурланов Руслан К.</div><div class="drv-card-meta">204-АЛА · №14 · АТП-1</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.9</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">ЖА</div><div class="drv-card-info"><div class="drv-card-name">Жаксыбеков Арман С.</div><div class="drv-card-meta">109-АЛА · №36 · АТП-1</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.6</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--amber-50);color:var(--amber)">БС</div><div class="drv-card-info"><div class="drv-card-name">Байжанов Серик Т.</div><div class="drv-card-meta">156-АЛА · АТП-1</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.7</span><span class="chip c-amber">Осмотр</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">АД</div><div class="drv-card-info"><div class="drv-card-name">Амиров Дамир К.</div><div class="drv-card-meta">228-АЛА · №11 · АТП-1</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--amber);font-weight:600">★ 4.2</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--red-50);color:var(--red)">ЕК</div><div class="drv-card-info"><div class="drv-card-name">Ермеков Канат Б.</div><div class="drv-card-meta">078-АЛА · АТП-1</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--red);font-weight:600">★ 3.8</span><span class="chip c-red">Недопуск</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">ИС</div><div class="drv-card-info"><div class="drv-card-name">Ибрагимов Санжар Т.</div><div class="drv-card-meta">312-АЛА · №18 · АТП-2</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.6</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">КА</div><div class="drv-card-info"><div class="drv-card-name">Калиев Абылай Р.</div><div class="drv-card-meta">418-АЛА · №25 · АТП-2</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.4</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--green-50);color:var(--green)">ДЖ</div><div class="drv-card-info"><div class="drv-card-name">Досмуханов Жанат К.</div><div class="drv-card-meta">521-АЛА · №12 · АТП-2</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.5</span><span class="chip c-green">Готов</span></div></div>
+          </div>
+          <div style="padding:10px 0 0;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center">
+            <span>Показано 9 из 100 водителей</span>
+            <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Показать всех →</button>
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card"><div class="ch"><div class="ct">${icon('building','i-sm')} Персонал по автопаркам</div></div><div style="overflow-x:auto"><table class="dt"><thead><tr><th>Автопарк</th><th>Водители</th><th>Диспетчеры</th><th>Механики</th><th>Врачи</th><th>Админ.</th><th>Всего</th></tr></thead><tbody>
+          <tr><td><b>АТП-1 Алматы</b></td><td>48</td><td>4</td><td>6</td><td>2</td><td>7</td><td><b>67</b></td></tr>
+          <tr><td><b>АТП-2 Алматы</b></td><td>52</td><td>5</td><td>7</td><td>2</td><td>8</td><td><b>74</b></td></tr>
+        </tbody></table></div></div>
+        <div class="card"><div class="ch"><div class="ct">${icon('barChart','i-sm')} Статистика</div></div><div class="cb">
+          <div class="sr"><span class="sr-l">Ср. стаж водителей</span><span class="sr-v">7.8 года</span></div>
+          <div class="sr"><span class="sr-l">Ср. рейтинг</span><span class="sr-v" style="color:var(--green)">★ 4.4</span></div>
+          <div class="sr"><span class="sr-l">Нарушений (мес)</span><span class="sr-v" style="color:var(--red)">7</span></div>
+          <div class="sr"><span class="sr-l">Текучесть (год)</span><span class="sr-v">6.8%</span></div>
+        </div></div>
+      </div>
+    </div>
     <div class="page" id="pg-sup-fines"><div class="card"><div class="ch"><div class="ct">${icon('alertCircle','i-sm')} Штрафы</div></div><div class="cb" style="color:var(--muted);font-size:13px">Штрафы по моим паркам</div></div></div>
     <div class="page" id="pg-sup-fuel"><div class="card"><div class="ch"><div class="ct">${icon('fuel','i-sm')} Топливо</div></div><div class="cb" style="color:var(--muted);font-size:13px">Топливо по моим паркам</div></div></div>
     `;
@@ -1373,17 +1494,20 @@ function buildPages(role,notifs){
               <button class="btn btn-dark" style="padding:5px 10px;font-size:11px">+ Добавить</button>
             </div>
           </div>
-          <div style="overflow-x:auto"><table class="dt"><thead><tr><th>ФИО</th><th>Стаж</th><th>ТС</th><th>Маршрут</th><th>Рейтинг</th><th>Статус</th></tr></thead><tbody>
-            <tr><td><b>Садыков Кайрат А.</b></td><td>10 лет</td><td>317-АЛА</td><td>№22</td><td style="color:var(--green)">★ 4.8</td><td><span class="chip c-blue">Рейс</span></td></tr>
-            <tr><td><b>Нурланов Руслан К.</b></td><td>12 лет</td><td>204-АЛА</td><td>№14</td><td style="color:var(--green)">★ 4.9</td><td><span class="chip c-blue">Рейс</span></td></tr>
-            <tr><td><b>Жаксыбеков Арман С.</b></td><td>7 лет</td><td>109-АЛА</td><td>№36</td><td style="color:var(--green)">★ 4.6</td><td><span class="chip c-blue">Рейс</span></td></tr>
-            <tr><td><b>Байжанов Серик Т.</b></td><td>8 лет</td><td>156-АЛА</td><td>—</td><td style="color:var(--green)">★ 4.7</td><td><span class="chip c-amber">Осмотр</span></td></tr>
-            <tr><td><b>Амиров Дамир К.</b></td><td>5 лет</td><td>228-АЛА</td><td>№11</td><td style="color:var(--amber)">★ 4.2</td><td><span class="chip c-blue">Рейс</span></td></tr>
-            <tr><td><b>Ермеков Канат Б.</b></td><td>6 лет</td><td>078-АЛА</td><td>—</td><td style="color:var(--red)">★ 3.8</td><td><span class="chip c-red">Недопуск</span></td></tr>
-            <tr><td><b>Мусин Ержан Б.</b></td><td>6 лет</td><td>391-АЛА</td><td>№9</td><td style="color:var(--green)">★ 4.5</td><td><span class="chip c-blue">Рейс</span></td></tr>
-            <tr><td><b>Токтаров Алмас М.</b></td><td>4 года</td><td>502-АЛА</td><td>№22</td><td style="color:var(--green)">★ 4.4</td><td><span class="chip c-blue">Рейс</span></td></tr>
-          </tbody></table></div>
-          <div style="padding:8px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)">Показано 8 из 48 водителей</div>
+          <div class="drv-cards">
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">СК</div><div class="drv-card-info"><div class="drv-card-name">Садыков Кайрат А.</div><div class="drv-card-meta">317-АЛА · №22 · стаж 10 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.8</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">НР</div><div class="drv-card-info"><div class="drv-card-name">Нурланов Руслан К.</div><div class="drv-card-meta">204-АЛА · №14 · стаж 12 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.9</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">ЖА</div><div class="drv-card-info"><div class="drv-card-name">Жаксыбеков Арман С.</div><div class="drv-card-meta">109-АЛА · №36 · стаж 7 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.6</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--amber-50);color:var(--amber)">БС</div><div class="drv-card-info"><div class="drv-card-name">Байжанов Серик Т.</div><div class="drv-card-meta">156-АЛА · стаж 8 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.7</span><span class="chip c-amber">Осмотр</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">АД</div><div class="drv-card-info"><div class="drv-card-name">Амиров Дамир К.</div><div class="drv-card-meta">228-АЛА · №11 · стаж 5 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--amber);font-weight:600">★ 4.2</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--red-50);color:var(--red)">ЕК</div><div class="drv-card-info"><div class="drv-card-name">Ермеков Канат Б.</div><div class="drv-card-meta">078-АЛА · стаж 6 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--red);font-weight:600">★ 3.8</span><span class="chip c-red">Недопуск</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">МЕ</div><div class="drv-card-info"><div class="drv-card-name">Мусин Ержан Б.</div><div class="drv-card-meta">391-АЛА · №9 · стаж 6 лет</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.5</span><span class="chip c-blue">Рейс</span></div></div>
+            <div class="drv-card"><div class="drv-card-av" style="background:var(--blue-50);color:var(--blue)">ТА</div><div class="drv-card-info"><div class="drv-card-name">Токтаров Алмас М.</div><div class="drv-card-meta">502-АЛА · №22 · стаж 4 года</div></div><div class="drv-card-right"><span style="font-size:11px;color:var(--green);font-weight:600">★ 4.4</span><span class="chip c-blue">Рейс</span></div></div>
+          </div>
+          <div style="padding:10px 0 0;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center">
+            <span>Показано 8 из 48 водителей</span>
+            <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Показать всех →</button>
+          </div>
         </div>
         <div class="card">
           <div class="ch"><div class="ct">${icon('building','i-sm')} Персонал</div></div>
