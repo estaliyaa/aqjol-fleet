@@ -376,8 +376,19 @@ table.dt{width:100%;border-collapse:collapse;font-size:12px}
 .sch-search input:focus{background:var(--white);border-color:var(--blue)}
 .sch-search .i{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted)}
 
-.sch-gen-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--r);margin-bottom:14px}
-.sch-gen-bar span{font-size:12px;color:var(--blue-700);flex:1}
+.sch-gen-bar{display:flex;align-items:center;gap:12px;padding:16px 20px;background:linear-gradient(135deg,var(--blue-50) 0%,var(--indigo-50) 100%);border:1px solid var(--blue-100);border-radius:var(--r-lg);margin-bottom:14px}
+.sch-gen-bar span{font-size:12px;color:var(--blue-700);flex:1;line-height:1.5}
+.sch-gen-bar .gen-ic{width:40px;height:40px;border-radius:var(--r);background:var(--blue-100);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sch-approve-btn{padding:8px 20px!important;font-size:12px!important;background:var(--green)!important;color:#fff!important;border:none!important;border-radius:var(--r)!important;font-weight:700!important;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(5,150,105,.25);transition:all .15s!important;letter-spacing:.2px}
+.sch-approve-btn:hover{background:var(--green-700)!important;box-shadow:0 4px 14px rgba(5,150,105,.35)!important;transform:translateY(-1px)}
+.sch-legend-bar{display:flex;gap:14px;font-size:11px;color:var(--text-2);align-items:center;padding:10px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px}
+.sch-legend-bar .sch-legend-item{display:flex;align-items:center;gap:5px;font-weight:500}
+
+/* View-as read-only mode — hide action buttons */
+.view-only .btn-blue,.view-only .btn-dark,.view-only .btn-danger,.view-only .btn-ghost,.view-only .sos-btn,.view-only .e-send{display:none!important}
+.view-only .sch-gen-bar button{display:none!important}
+.view-only .sch-cell{pointer-events:none}
+.view-only-banner{background:var(--amber-50);border:1px solid var(--amber-100);border-radius:var(--r);padding:8px 14px;font-size:12px;color:var(--amber-700);display:flex;align-items:center;gap:8px;margin-bottom:14px}
 
 @media(max-width:1200px){.kpi-row{grid-template-columns:repeat(2,1fr)}.g2,.g3{grid-template-columns:1fr}}
 
@@ -671,22 +682,26 @@ function buildScheduleHTML(){
         <div class="sch-month-label">${monthNames[schMonth]} ${schYear}</div>
         <button onclick="schNav(1)">${icon('chevRight','i-sm')}</button>
       </div>
-      <div class="sch-legend">
-        <div class="sch-legend-item"><div class="sch-legend-dot" style="background:var(--green-100);border:1px solid var(--green-300)"></div>Рабочий</div>
-        <div class="sch-legend-item"><div class="sch-legend-dot" style="background:var(--white);border:1px solid var(--border)"></div>Выходной</div>
-        <div class="sch-legend-item"><div class="sch-legend-dot" style="background:var(--amber-100);border:1px solid var(--amber-300)"></div>Отпуск</div>
-        <div class="sch-legend-item"><div class="sch-legend-dot" style="background:var(--red-100);border:1px solid var(--red-300)"></div>Больничный</div>
-      </div>
       <div class="sch-stats">Водителей: <b>${DRIVER_NAMES.length}</b> &nbsp; Смен: <b>${workCount}</b> &nbsp; Дней: <b>${daysInMonth}</b></div>
     </div>
     <div class="sch-gen-bar">
-      ${icon('shuffle','i-sm')}
-      <span>Авто-генерация графика 2/2 для ${DRIVER_NAMES.length} водителей. Кликните ячейку для изменения.</span>
-      <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px" onclick="regenSchedule()">Перегенерировать</button>
-      <button class="btn btn-dark" style="padding:4px 10px;font-size:11px">${icon('download','i-sm')} Утвердить</button>
+      <div class="gen-ic">${icon('shuffle')}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--blue-800);margin-bottom:2px">Умная генерация графика</div>
+        <span>Режим 2/2 для ${DRIVER_NAMES.length} водителей · Равномерное распределение нагрузки · Кликните ячейку для ручного изменения</span>
+      </div>
+      <button class="btn btn-ghost" style="padding:6px 14px;font-size:11px" onclick="regenSchedule()">${icon('shuffle','i-sm')} Перегенерировать</button>
+      <button class="sch-approve-btn">${icon('check','i-sm')} Утвердить график</button>
     </div>
-    <div class="sch-search">${icon('search','i-sm')}<input id="schSearchInput" placeholder="Поиск водителя..." oninput="filterSchedule(this.value)"></div>
-    <div class="sch-wrap" style="max-height:calc(100vh - 280px)">
+    <div class="sch-search">${icon('search','i-sm')}<input id="schSearchInput" placeholder="Поиск водителя по ФИО или номеру..." oninput="filterSchedule(this.value)"></div>
+    <div class="sch-legend-bar">
+      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Обозначения:</span>
+      <div class="sch-legend-item"><div class="sch-legend-dot" style="background:var(--green-100);border:1px solid var(--green-300)"></div>Рабочий (Р)</div>
+      <div class="sch-legend-item"><div class="sch-legend-dot" style="background:var(--white);border:1px solid var(--border)"></div>Выходной (—)</div>
+      <div class="sch-legend-item"><div class="sch-legend-dot" style="background:var(--amber-100);border:1px solid var(--amber-300)"></div>Отпуск (О)</div>
+      <div class="sch-legend-item"><div class="sch-legend-dot" style="background:var(--red-100);border:1px solid var(--red-300)"></div>Больничный (Б)</div>
+    </div>
+    <div class="sch-wrap" style="max-height:calc(100vh - 320px)">
       <table class="sch-table" id="schTable">
         <thead><tr>${hdr}</tr></thead>
         <tbody id="schBody">${rows}</tbody>
@@ -925,7 +940,8 @@ function buildApp(){
         </div>
       </header>
 
-      <div class="scroll" id="scrollArea">
+      <div class="scroll${origUser?' view-only':''}" id="scrollArea">
+        ${origUser?`<div class="view-only-banner">${icon('eye','i-sm')} Режим просмотра — ${curUser.rname}. Действия недоступны.</div>`:''}
         ${buildPages(r,myNotifs)}
       </div>
     </div>
@@ -1253,7 +1269,7 @@ function buildPages(role,notifs){
         <div class="kpi"><div class="kpi-top"><div class="kpi-label">В рейсе</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div></div><div class="kpi-val">34</div><div class="kpi-d up">${icon('chevUp','i-sm')} +4</div></div>
         <div class="kpi"><div class="kpi-top"><div class="kpi-label">Допуск выдан</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('shield','i-sm')}</div></div><div class="kpi-val">41</div><div class="kpi-d">из 48</div></div>
         <div class="kpi"><div class="kpi-top"><div class="kpi-label">Штрафы</div><div class="kpi-ic" style="background:var(--red-50);color:var(--red)">${icon('alertCircle','i-sm')}</div></div><div class="kpi-val" style="color:var(--red)">3</div><div class="kpi-d dn">3 дня до льготы</div></div>
-        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Ср. расход</div><div class="kpi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('fuel','i-sm')}</div></div><div class="kpi-val">28.4<span style="font-size:14px;color:var(--muted)"> л</span></div><div class="kpi-d" style="color:var(--muted)">на 100 км · норма</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Расход топлива (мес)</div><div class="kpi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('fuel','i-sm')}</div></div><div class="kpi-val">5 240<span style="font-size:14px;color:var(--muted)"> л</span></div><div class="kpi-d dn">${icon('chevDn','i-sm')} −3% к пред. мес.</div></div>
       </div>
       <div class="g2" style="margin-bottom:14px">
         <div class="card"><div class="ch"><div class="ct">${icon('barChart','i-sm')} Активность (7 дней)</div><span class="chip c-blue">Апрель</span></div><div class="cb">
@@ -1261,12 +1277,37 @@ function buildPages(role,notifs){
           <div class="bar-lbl"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span style="color:var(--blue);font-weight:700">Вс</span></div>
           <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:11px;color:var(--muted)"><span>Рейсов: <b style="color:var(--text-1)">267</b></span><span>Пробег: <b style="color:var(--text-1)">18 450 км</b></span></div>
         </div></div>
-        <div class="card"><div class="ch"><div class="ct">${icon('pieChart','i-sm')} Статус парка</div></div><div class="cb">
-          <div class="donut-w" style="margin-bottom:14px">
-            <svg width="90" height="90" viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="#E5E7EB" stroke-width="11"/><circle cx="40" cy="40" r="28" fill="none" stroke="#2563EB" stroke-width="11" stroke-dasharray="72 104.5" stroke-dashoffset="-26" stroke-linecap="round"/><circle cx="40" cy="40" r="28" fill="none" stroke="#059669" stroke-width="11" stroke-dasharray="28 148.5" stroke-dashoffset="-98" stroke-linecap="round"/><circle cx="40" cy="40" r="28" fill="none" stroke="#D97706" stroke-width="11" stroke-dasharray="14.7 161.8" stroke-dashoffset="-126" stroke-linecap="round"/><circle cx="40" cy="40" r="28" fill="none" stroke="#DC2626" stroke-width="11" stroke-dasharray="7.3 169.2" stroke-dashoffset="-140.7" stroke-linecap="round"/><text x="40" y="38" text-anchor="middle" font-size="12" font-weight="800" fill="#111827">48</text><text x="40" y="49" text-anchor="middle" font-size="7" fill="#9CA3AF">ТС</text></svg>
-            <div class="lgd"><div class="lgd-i"><div class="lgd-d" style="background:var(--blue)"></div>В рейсе — 34</div><div class="lgd-i"><div class="lgd-d" style="background:var(--green)"></div>Готово — 8</div><div class="lgd-i"><div class="lgd-d" style="background:var(--amber)"></div>На ТО — 4</div><div class="lgd-i"><div class="lgd-d" style="background:var(--red)"></div>Не допущено — 2</div></div>
+        <div class="card"><div class="ch"><div class="ct">${icon('pieChart','i-sm')} Статус парка</div><span class="chip c-blue">48 ТС</span></div><div class="cb">
+          <!-- Stacked progress bar -->
+          <div style="height:10px;border-radius:6px;overflow:hidden;display:flex;margin-bottom:16px">
+            <div style="width:70.8%;background:var(--blue);transition:width .3s"></div>
+            <div style="width:16.7%;background:var(--green-400);transition:width .3s"></div>
+            <div style="width:8.3%;background:var(--amber-400);transition:width .3s"></div>
+            <div style="width:4.2%;background:var(--red-400);transition:width .3s"></div>
           </div>
-          <div class="prog"><div class="prog-f" style="width:71%;background:var(--blue)"></div></div><div style="font-size:10px;color:var(--muted);margin-top:4px">71% парка активно</div>
+          <!-- Status rows -->
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:36px;height:36px;border-radius:var(--r);background:var(--blue-50);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0">${icon('truck','i-sm')}</div>
+              <div style="flex:1"><div style="font-size:12px;font-weight:600">В рейсе</div><div style="font-size:10px;color:var(--muted)">Активно на маршрутах</div></div>
+              <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--blue)">34</div><div style="font-size:10px;color:var(--muted)">70.8%</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:36px;height:36px;border-radius:var(--r);background:var(--green-50);color:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0">${icon('checkCircle','i-sm')}</div>
+              <div style="flex:1"><div style="font-size:12px;font-weight:600">Готово</div><div style="font-size:10px;color:var(--muted)">На стоянке, допущены</div></div>
+              <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--green)">8</div><div style="font-size:10px;color:var(--muted)">16.7%</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:36px;height:36px;border-radius:var(--r);background:var(--amber-50);color:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0">${icon('wrench','i-sm')}</div>
+              <div style="flex:1"><div style="font-size:12px;font-weight:600">На ТО</div><div style="font-size:10px;color:var(--muted)">Плановое обслуживание</div></div>
+              <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--amber)">4</div><div style="font-size:10px;color:var(--muted)">8.3%</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:36px;height:36px;border-radius:var(--r);background:var(--red-50);color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0">${icon('alertCircle','i-sm')}</div>
+              <div style="flex:1"><div style="font-size:12px;font-weight:600">Не допущено</div><div style="font-size:10px;color:var(--muted)">Требуется проверка</div></div>
+              <div style="text-align:right"><div style="font-size:18px;font-weight:800;color:var(--red)">2</div><div style="font-size:10px;color:var(--muted)">4.2%</div></div>
+            </div>
+          </div>
         </div></div>
       </div>
       <div class="g2">
@@ -1283,8 +1324,85 @@ function buildPages(role,notifs){
         </div></div>
       </div>
     </div>
-    <div class="page" id="pg-head-vehicles"><div class="card"><div class="ch"><div class="ct">${icon('truck','i-sm')} Транспорт</div></div><div class="cb" style="color:var(--muted);font-size:13px">Реестр транспортных средств автопарка</div></div></div>
-    <div class="page" id="pg-head-staff"><div class="card"><div class="ch"><div class="ct">${icon('users','i-sm')} Сотрудники</div></div><div class="cb" style="color:var(--muted);font-size:13px">Реестр сотрудников</div></div></div>
+    <div class="page" id="pg-head-vehicles">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Всего ТС</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('truck','i-sm')}</div></div><div class="kpi-val">48</div><div class="kpi-d">АТП-1 Алматы</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">В рейсе</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('play','i-sm')}</div></div><div class="kpi-val" style="color:var(--green)">34</div><div class="kpi-d up">${icon('chevUp','i-sm')} 70.8%</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">На ТО / ремонте</div><div class="kpi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('wrench','i-sm')}</div></div><div class="kpi-val" style="color:var(--amber)">4</div><div class="kpi-d">плановое</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Ср. пробег</div><div class="kpi-ic" style="background:var(--slate-100);color:var(--slate)">${icon('barChart','i-sm')}</div></div><div class="kpi-val">148K<span style="font-size:14px;color:var(--muted)"> км</span></div><div class="kpi-d">на единицу</div></div>
+      </div>
+      <div class="card">
+        <div class="ch">
+          <div class="ct">${icon('truck','i-sm')} Реестр транспортных средств</div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <div class="top-search" style="position:relative">${icon('search','i-sm')}<input placeholder="Поиск ТС..." style="width:180px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:11px;background:var(--bg);outline:none"></div>
+            <button class="btn btn-ghost" style="padding:5px 10px;font-size:11px">${icon('download','i-sm')} Экспорт</button>
+            <button class="btn btn-dark" style="padding:5px 10px;font-size:11px">+ Добавить ТС</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto"><table class="dt"><thead><tr><th>Гос. номер</th><th>Модель</th><th>Год</th><th>Пробег</th><th>Водитель</th><th>Маршрут</th><th>Статус ТО</th><th>Топливо</th><th>Статус</th></tr></thead><tbody>
+          <tr><td><b>317-АЛА</b></td><td>ЛиАЗ 5256</td><td>2021</td><td>142 300 км</td><td>Садыков К.А.</td><td>№22</td><td><span class="chip c-green">Пройден</span></td><td>67%</td><td><span class="chip c-red">ЧП</span></td></tr>
+          <tr><td><b>204-АЛА</b></td><td>МАЗ-203</td><td>2022</td><td>98 450 км</td><td>Нурланов Р.К.</td><td>№14</td><td><span class="chip c-green">Пройден</span></td><td>54%</td><td><span class="chip c-blue">Рейс</span></td></tr>
+          <tr><td><b>109-АЛА</b></td><td>ЛиАЗ 5292</td><td>2020</td><td>186 200 км</td><td>Жаксыбеков А.С.</td><td>№36</td><td><span class="chip c-green">Пройден</span></td><td>41%</td><td><span class="chip c-blue">Рейс</span></td></tr>
+          <tr><td><b>445-АЛА</b></td><td>Yutong ZK6125</td><td>2023</td><td>52 100 км</td><td>Байжанов С.Т.</td><td>—</td><td><span class="chip c-green">Пройден</span></td><td>88%</td><td><span class="chip c-green">Готов</span></td></tr>
+          <tr><td><b>078-АЛА</b></td><td>МАЗ-206</td><td>2019</td><td>218 700 км</td><td>—</td><td>—</td><td><span class="chip c-red">Просрочен</span></td><td>32%</td><td><span class="chip c-amber">На ТО</span></td></tr>
+          <tr><td><b>156-АЛА</b></td><td>ЛиАЗ 5292</td><td>2021</td><td>134 600 км</td><td>Амиров Д.К.</td><td>№7</td><td><span class="chip c-green">Пройден</span></td><td>59%</td><td><span class="chip c-blue">Рейс</span></td></tr>
+          <tr><td><b>228-АЛА</b></td><td>МАЗ-203</td><td>2022</td><td>108 300 км</td><td>Ермеков К.Б.</td><td>№11</td><td><span class="chip c-green">Пройден</span></td><td>45%</td><td><span class="chip c-blue">Рейс</span></td></tr>
+          <tr><td><b>391-АЛА</b></td><td>ЛиАЗ 5256</td><td>2020</td><td>195 400 км</td><td>Мусин Е.Б.</td><td>№9</td><td><span class="chip c-amber">Скоро</span></td><td>72%</td><td><span class="chip c-blue">Рейс</span></td></tr>
+          <tr><td><b>502-АЛА</b></td><td>Yutong ZK6128</td><td>2023</td><td>41 200 км</td><td>Токтаров А.М.</td><td>№22</td><td><span class="chip c-green">Пройден</span></td><td>81%</td><td><span class="chip c-blue">Рейс</span></td></tr>
+          <tr><td><b>615-АЛА</b></td><td>МАЗ-206</td><td>2021</td><td>162 800 км</td><td>—</td><td>—</td><td><span class="chip c-red">Просрочен</span></td><td>15%</td><td><span class="chip c-amber">На ТО</span></td></tr>
+        </tbody></table></div>
+        <div style="padding:10px 18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)">
+          <span>Показано 10 из 48</span>
+          <div style="display:flex;gap:4px"><button class="btn btn-ghost" style="padding:3px 8px;font-size:10px">← Назад</button><button class="btn btn-ghost" style="padding:3px 8px;font-size:10px;background:var(--text-1);color:#fff;border-color:var(--text-1)">1</button><button class="btn btn-ghost" style="padding:3px 8px;font-size:10px">2</button><button class="btn btn-ghost" style="padding:3px 8px;font-size:10px">3</button><button class="btn btn-ghost" style="padding:3px 8px;font-size:10px">Далее →</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="page" id="pg-head-staff">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Всего сотрудников</div><div class="kpi-ic" style="background:var(--blue-50);color:var(--blue)">${icon('users','i-sm')}</div></div><div class="kpi-val">67</div><div class="kpi-d">АТП-1 Алматы</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">Водители</div><div class="kpi-ic" style="background:var(--slate-100);color:var(--slate)">${icon('truck','i-sm')}</div></div><div class="kpi-val">48</div><div class="kpi-d">на маршрутах</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">На смене сегодня</div><div class="kpi-ic" style="background:var(--green-50);color:var(--green)">${icon('checkCircle','i-sm')}</div></div><div class="kpi-val" style="color:var(--green)">41</div><div class="kpi-d up">${icon('chevUp','i-sm')} 85.4%</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-label">В отпуске / б/л</div><div class="kpi-ic" style="background:var(--amber-50);color:var(--amber)">${icon('calendar','i-sm')}</div></div><div class="kpi-val" style="color:var(--amber)">5</div><div class="kpi-d">2 отпуск · 3 б/л</div></div>
+      </div>
+      <div class="g2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="ch"><div class="ct">${icon('users','i-sm')} Водители</div>
+            <div style="display:flex;gap:6px;align-items:center">
+              <div class="top-search" style="position:relative">${icon('search','i-sm')}<input placeholder="Поиск..." style="width:160px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:11px;background:var(--bg);outline:none"></div>
+              <button class="btn btn-dark" style="padding:5px 10px;font-size:11px">+ Добавить</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto"><table class="dt"><thead><tr><th>ФИО</th><th>Стаж</th><th>ТС</th><th>Маршрут</th><th>Рейтинг</th><th>Статус</th></tr></thead><tbody>
+            <tr><td><b>Садыков Кайрат А.</b></td><td>10 лет</td><td>317-АЛА</td><td>№22</td><td style="color:var(--green)">★ 4.8</td><td><span class="chip c-blue">Рейс</span></td></tr>
+            <tr><td><b>Нурланов Руслан К.</b></td><td>12 лет</td><td>204-АЛА</td><td>№14</td><td style="color:var(--green)">★ 4.9</td><td><span class="chip c-blue">Рейс</span></td></tr>
+            <tr><td><b>Жаксыбеков Арман С.</b></td><td>7 лет</td><td>109-АЛА</td><td>№36</td><td style="color:var(--green)">★ 4.6</td><td><span class="chip c-blue">Рейс</span></td></tr>
+            <tr><td><b>Байжанов Серик Т.</b></td><td>8 лет</td><td>156-АЛА</td><td>—</td><td style="color:var(--green)">★ 4.7</td><td><span class="chip c-amber">Осмотр</span></td></tr>
+            <tr><td><b>Амиров Дамир К.</b></td><td>5 лет</td><td>228-АЛА</td><td>№11</td><td style="color:var(--amber)">★ 4.2</td><td><span class="chip c-blue">Рейс</span></td></tr>
+            <tr><td><b>Ермеков Канат Б.</b></td><td>6 лет</td><td>078-АЛА</td><td>—</td><td style="color:var(--red)">★ 3.8</td><td><span class="chip c-red">Недопуск</span></td></tr>
+            <tr><td><b>Мусин Ержан Б.</b></td><td>6 лет</td><td>391-АЛА</td><td>№9</td><td style="color:var(--green)">★ 4.5</td><td><span class="chip c-blue">Рейс</span></td></tr>
+            <tr><td><b>Токтаров Алмас М.</b></td><td>4 года</td><td>502-АЛА</td><td>№22</td><td style="color:var(--green)">★ 4.4</td><td><span class="chip c-blue">Рейс</span></td></tr>
+          </tbody></table></div>
+          <div style="padding:8px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)">Показано 8 из 48 водителей</div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">${icon('building','i-sm')} Персонал</div></div>
+          <div class="cb">
+            <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">По должностям</div>
+            <div class="sr"><span class="sr-l">Водители</span><span class="sr-v">48</span></div>
+            <div class="sr"><span class="sr-l">Диспетчеры</span><span class="sr-v">4</span></div>
+            <div class="sr"><span class="sr-l">Механики</span><span class="sr-v">6</span></div>
+            <div class="sr"><span class="sr-l">Врачи</span><span class="sr-v">2</span></div>
+            <div class="sr"><span class="sr-l">Администрация</span><span class="sr-v">7</span></div>
+            <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:16px 0 10px">Статистика</div>
+            <div class="sr"><span class="sr-l">Ср. стаж</span><span class="sr-v">7.2 года</span></div>
+            <div class="sr"><span class="sr-l">Ср. рейтинг водителей</span><span class="sr-v" style="color:var(--green)">★ 4.5</span></div>
+            <div class="sr"><span class="sr-l">Нарушений (мес)</span><span class="sr-v" style="color:var(--red)">4</span></div>
+            <div class="sr"><span class="sr-l">Текучесть (год)</span><span class="sr-v">8%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="page" id="pg-head-schedule">${buildScheduleHTML()}</div>
     <div class="page" id="pg-head-clearance"><div class="card"><div class="ch"><div class="ct">${icon('shield','i-sm')} Допуск к выезду</div></div><div class="cb" style="color:var(--muted);font-size:13px">Контроль цепочки допуска</div></div></div>
     <div class="page" id="pg-head-monitor"><div class="card"><div class="ch"><div class="ct">${icon('radar','i-sm')} Мониторинг</div></div><div class="cb" style="color:var(--muted);font-size:13px">Отслеживание транспорта в реальном времени</div></div></div>
