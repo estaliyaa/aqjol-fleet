@@ -74,14 +74,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
 .login-btn{width:100%;padding:10px;background:var(--text-1);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
 .login-btn:hover{background:#1F2937}
 .login-err{background:var(--red-50);color:var(--red);border:1px solid var(--red-100);border-radius:var(--r);padding:8px 12px;font-size:12px;margin-bottom:14px;display:none}
-.demo-grid{margin-top:28px;border-top:1px solid var(--border);padding-top:20px}
-.demo-grid h4{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.7px;text-transform:uppercase;margin-bottom:8px}
-.demo-row{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:6px;cursor:pointer;transition:background .1s;margin-bottom:1px}
-.demo-row:hover{background:var(--bg)}
-.demo-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.demo-name{font-size:12px;font-weight:600;color:var(--text-1);flex:1}
-.demo-email{font-size:10px;color:var(--muted)}
 .login-footer{text-align:center;font-size:10px;color:var(--muted);margin-top:20px}
+/* Role picker */
+#rolePicker{position:fixed;inset:0;background:var(--white);display:none;align-items:center;justify-content:center;z-index:1001}
+.rp-card{width:420px;text-align:center}
+.rp-greeting{font-size:18px;font-weight:700;color:var(--text-1);margin-bottom:4px}
+.rp-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.rp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.rp-role{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 12px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .15s;background:var(--white)}
+.rp-role:hover{border-color:var(--blue);background:var(--blue-50);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.rp-role-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700}
+.rp-role-name{font-size:13px;font-weight:700;color:var(--text-1)}
+.rp-role-desc{font-size:10px;color:var(--muted);line-height:1.3}
+.rp-back{font-size:12px;color:var(--muted);cursor:pointer;border:none;background:none;padding:6px 12px;border-radius:6px;transition:color .15s}
+.rp-back:hover{color:var(--text-1)}
 
 /* === APP SHELL === */
 .app{display:flex;height:100vh;overflow:hidden}
@@ -560,20 +566,61 @@ table.dt{width:100%;border-collapse:collapse;font-size:12px}
     <div class="login-h" style="font-size:22px;letter-spacing:.5px">AQJOL</div>
     <div class="login-sub">Система управления автопарком<br><span style="font-size:10px;color:var(--border-2);letter-spacing:.3px">Ақ жол болсын · Безопасный рейс</span></div>
     <div id="loginErr" class="login-err"></div>
-    <div class="field"><label>Email</label><input id="lEmail" placeholder="name@fleet.kz"></div>
+    <div class="field"><label>Email</label><input id="lEmail" placeholder="name@aqjol.kz"></div>
     <div class="field"><label>Пароль</label><input id="lPass" type="password" placeholder="••••••••"></div>
     <button class="login-btn" onclick="doLogin()">Войти</button>
-    <div class="demo-grid">
-      <h4>Демо-аккаунты</h4>
-      <div class="demo-row" onclick="fl('general@fleet.kz','gen123')"><div class="demo-dot" style="background:var(--indigo)"></div><div class="demo-name">Ген. директор</div><div class="demo-email">general@fleet.kz</div></div>
-      <div class="demo-row" onclick="fl('supervisor@fleet.kz','sup123')"><div class="demo-dot" style="background:var(--purple)"></div><div class="demo-name">Руководитель</div><div class="demo-email">supervisor@fleet.kz</div></div>
-      <div class="demo-row" onclick="fl('head@fleet.kz','head123')"><div class="demo-dot" style="background:var(--text-1)"></div><div class="demo-name">Начальник</div><div class="demo-email">head@fleet.kz</div></div>
-      <div class="demo-row" onclick="fl('dispatcher@fleet.kz','disp123')"><div class="demo-dot" style="background:var(--blue)"></div><div class="demo-name">Диспетчер</div><div class="demo-email">dispatcher@fleet.kz</div></div>
-      <div class="demo-row" onclick="fl('mechanic@fleet.kz','mech123')"><div class="demo-dot" style="background:var(--amber)"></div><div class="demo-name">Механик</div><div class="demo-email">mechanic@fleet.kz</div></div>
-      <div class="demo-row" onclick="fl('doctor@fleet.kz','doc123')"><div class="demo-dot" style="background:var(--green)"></div><div class="demo-name">Врач</div><div class="demo-email">doctor@fleet.kz</div></div>
-      <div class="demo-row" onclick="fl('driver@fleet.kz','drv123')"><div class="demo-dot" style="background:var(--slate)"></div><div class="demo-name">Водитель</div><div class="demo-email">driver@fleet.kz</div></div>
-    </div>
     <div class="login-footer">v2.0 · AQJOL Fleet Systems · Алматы 2026</div>
+  </div>
+</div>
+</div>
+
+<!-- Role Picker Screen -->
+<div id="rolePicker">
+<div style="position:fixed;inset:0;background:var(--white);display:flex;align-items:center;justify-content:center;z-index:1001">
+  <div class="rp-card">
+    <div class="login-mark" style="width:52px;height:52px;border-radius:14px;background:var(--text-1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;flex-direction:column;gap:0">
+      <svg width="28" height="20" viewBox="0 0 28 20" fill="none"><rect x="1" y="3" width="26" height="13" rx="2.5" stroke="#fff" stroke-width="1.6"/><rect x="3" y="5.5" width="5" height="4" rx="1" stroke="#fff" stroke-width="1.3"/><rect x="11" y="5.5" width="6" height="4" rx="1" stroke="#fff" stroke-width="1.3"/><rect x="20" y="5.5" width="5" height="4" rx="1" stroke="#fff" stroke-width="1.3"/><circle cx="6" cy="17.5" r="2" stroke="#fff" stroke-width="1.4"/><circle cx="22" cy="17.5" r="2" stroke="#fff" stroke-width="1.4"/><path d="M11 11.5v4.5M17 11.5v4.5" stroke="#fff" stroke-width="1.3"/></svg>
+    </div>
+    <div class="rp-greeting" id="rpGreeting">Добро пожаловать!</div>
+    <div class="rp-sub">Выберите роль для входа</div>
+    <div class="rp-grid">
+      <div class="rp-role" onclick="pickRole('general')">
+        <div class="rp-role-icon" style="background:var(--indigo)">ГД</div>
+        <div class="rp-role-name">Ген. директор</div>
+        <div class="rp-role-desc">Управление и аналитика</div>
+      </div>
+      <div class="rp-role" onclick="pickRole('supervisor')">
+        <div class="rp-role-icon" style="background:var(--purple)">РК</div>
+        <div class="rp-role-name">Руководитель</div>
+        <div class="rp-role-desc">Контроль операций</div>
+      </div>
+      <div class="rp-role" onclick="pickRole('head')">
+        <div class="rp-role-icon" style="background:var(--text-1)">НЧ</div>
+        <div class="rp-role-name">Начальник</div>
+        <div class="rp-role-desc">Управление парком</div>
+      </div>
+      <div class="rp-role" onclick="pickRole('dispatcher')">
+        <div class="rp-role-icon" style="background:var(--blue)">ДС</div>
+        <div class="rp-role-name">Диспетчер</div>
+        <div class="rp-role-desc">Маршруты и рейсы</div>
+      </div>
+      <div class="rp-role" onclick="pickRole('mechanic')">
+        <div class="rp-role-icon" style="background:var(--amber)">МХ</div>
+        <div class="rp-role-name">Механик</div>
+        <div class="rp-role-desc">Техобслуживание</div>
+      </div>
+      <div class="rp-role" onclick="pickRole('doctor')">
+        <div class="rp-role-icon" style="background:var(--green)">ВР</div>
+        <div class="rp-role-name">Врач</div>
+        <div class="rp-role-desc">Медосмотры</div>
+      </div>
+      <div class="rp-role" onclick="pickRole('driver')" style="grid-column:1/-1">
+        <div class="rp-role-icon" style="background:var(--slate)">ВД</div>
+        <div class="rp-role-name">Водитель</div>
+        <div class="rp-role-desc">Личный кабинет водителя</div>
+      </div>
+    </div>
+    <button class="rp-back" onclick="backToLogin()">← Выйти</button>
   </div>
 </div>
 </div>
@@ -658,6 +705,8 @@ bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9
 arrowLR:'<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>',
 wrench:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
 activity:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+droplet:'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
+zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
 home:'<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
 mapPin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
 search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
@@ -1264,14 +1313,19 @@ function filterSchedule(query){
 
 // ── Users DB ──
 const USERS={
-'general@fleet.kz':{p:'gen123',role:'general',name:'Касымов А.Р.',rname:'Ген. директор',color:'var(--indigo)',bg:'var(--indigo-50)',initials:'КА',tagBg:'var(--indigo-600)'},
-'supervisor@fleet.kz':{p:'sup123',role:'supervisor',name:'Оспанов Т.М.',rname:'Руководитель',color:'var(--purple)',bg:'var(--purple-50)',initials:'ОТ',tagBg:'var(--purple-700)'},
-'head@fleet.kz':{p:'head123',role:'head',name:'Ахметов М.Б.',rname:'Начальник',color:'var(--text-1)',bg:'var(--bg-2)',initials:'АМ',tagBg:'var(--slate-800)'},
-'dispatcher@fleet.kz':{p:'disp123',role:'dispatcher',name:'Бекова А.Т.',rname:'Диспетчер',color:'var(--blue)',bg:'var(--blue-50)',initials:'БА',tagBg:'var(--blue-600)'},
-'mechanic@fleet.kz':{p:'mech123',role:'mechanic',name:'Серикбаев А.Н.',rname:'Механик',color:'var(--amber)',bg:'var(--amber-50)',initials:'СА',tagBg:'var(--amber-700)'},
-'doctor@fleet.kz':{p:'doc123',role:'doctor',name:'Маратова С.К.',rname:'Врач',color:'var(--green)',bg:'var(--green-50)',initials:'МС',tagBg:'var(--green-700)'},
-'driver@fleet.kz':{p:'drv123',role:'driver',name:'Садыков К.А.',rname:'Водитель',color:'var(--slate)',bg:'var(--bg-2)',initials:'СК',tagBg:'var(--slate-600)'}
+'amankeldi_d@aqjol.kz':{p:'daniyal123',name:'Аманкелді Д.'},
+'yesengeldi_b@aqjol.kz':{p:'beknur123',name:'Есенгелді Б.'}
 };
+const ROLES={
+general:{rname:'Ген. директор',color:'var(--indigo)',bg:'var(--indigo-50)',initials:'ГД',tagBg:'var(--indigo-600)'},
+supervisor:{rname:'Руководитель',color:'var(--purple)',bg:'var(--purple-50)',initials:'РК',tagBg:'var(--purple-700)'},
+head:{rname:'Начальник',color:'var(--text-1)',bg:'var(--bg-2)',initials:'НЧ',tagBg:'var(--slate-800)'},
+dispatcher:{rname:'Диспетчер',color:'var(--blue)',bg:'var(--blue-50)',initials:'ДС',tagBg:'var(--blue-600)'},
+mechanic:{rname:'Механик',color:'var(--amber)',bg:'var(--amber-50)',initials:'МХ',tagBg:'var(--amber-700)'},
+doctor:{rname:'Врач',color:'var(--green)',bg:'var(--green-50)',initials:'МС',tagBg:'var(--green-700)'},
+driver:{rname:'Водитель',color:'var(--slate)',bg:'var(--bg-2)',initials:'СК',tagBg:'var(--slate-600)'}
+};
+let loggedAccount=null;
 
 // ── Notifications DB ──
 const NOTIFS=[
@@ -1296,17 +1350,30 @@ const NOTIFS=[
 let curUser=null;
 let origUser=null; // tracks real logged-in user when using view-as
 
-function fl(e,p){document.getElementById('lEmail').value=e;document.getElementById('lPass').value=p;document.getElementById('loginErr').style.display='none'}
 function doLogin(){
   const e=document.getElementById('lEmail').value.trim().toLowerCase(),p=document.getElementById('lPass').value,err=document.getElementById('loginErr');
   if(!e||!p){err.textContent='Введите email и пароль';err.style.display='block';return}
   const u=USERS[e];if(!u||u.p!==p){err.textContent='Неверный email или пароль';err.style.display='block';return}
-  origUser=null;
-  curUser={...u,email:e};
-  buildApp();
+  loggedAccount=u;
+  document.getElementById('rpGreeting').textContent='Добро пожаловать, '+u.name;
   document.getElementById('loginScreen').style.display='none';
+  document.getElementById('rolePicker').style.display='flex';
 }
-function logout(){origUser=null;curUser=null;document.getElementById('loginScreen').style.display='flex';document.getElementById('appRoot').innerHTML='';document.getElementById('lEmail').value='';document.getElementById('lPass').value=''}
+function pickRole(role){
+  if(!loggedAccount) return;
+  const r=ROLES[role];
+  origUser=null;
+  const initials=loggedAccount.name.split(/[\s.]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  curUser={role,name:loggedAccount.name,rname:r.rname,color:r.color,bg:r.bg,initials:initials,tagBg:r.tagBg,email:''};
+  buildApp();
+  document.getElementById('rolePicker').style.display='none';
+}
+function backToLogin(){
+  loggedAccount=null;
+  document.getElementById('rolePicker').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+}
+function logout(){origUser=null;curUser=null;loggedAccount=null;document.getElementById('rolePicker').style.display='none';document.getElementById('loginScreen').style.display='flex';document.getElementById('appRoot').innerHTML='';document.getElementById('lEmail').value='';document.getElementById('lPass').value=''}
 
 // ── Build entire app based on role ──
 function buildApp(){
@@ -1674,13 +1741,10 @@ function closeNotifDetail(){
 }
 
 function viewAs(role,pill){
-  // On first switch, save the real logged-in user
   if(!origUser) origUser={...curUser};
-  const map={general:'general@fleet.kz',supervisor:'supervisor@fleet.kz',head:'head@fleet.kz',dispatcher:'dispatcher@fleet.kz',mechanic:'mechanic@fleet.kz',doctor:'doctor@fleet.kz',driver:'driver@fleet.kz'};
-  const email=map[role];
-  if(!email||!USERS[email]) return;
-  curUser={...USERS[email],email};
-  // If switching back to own role, clear view-as mode
+  const r=ROLES[role];
+  if(!r) return;
+  curUser={...curUser,role,rname:r.rname,color:r.color,bg:r.bg,tagBg:r.tagBg};
   if(role===origUser.role) origUser=null;
   buildApp();
 }
@@ -2574,27 +2638,82 @@ function buildPages(role,notifs){
           </div>
         </div>
       </div>
-      <div class="card" style="margin-top:14px">
-        <div class="ch"><div class="ct">${icon('barChart','i-sm')} Статистика за апрель</div></div>
-        <div class="cb">
-          <div class="g2">
-            <div>
-              <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">По дням недели</div>
-              ${[['Пн',92],['Вт',85],['Ср',88],['Чт',91],['Пт',87],['Сб',74],['Вс',0]].map(([day,pct])=>`
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-                <span style="width:18px;font-size:10px;color:var(--muted);text-align:right">${day}</span>
-                <div style="flex:1;height:8px;background:var(--bg-2);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${pct>0?'var(--blue)':'var(--bg-2)'};border-radius:4px"></div></div>
-                <span style="font-size:10px;color:var(--muted);width:24px">${pct?pct+'%':'-'}</span>
+      <!-- Stats Section -->
+      <div style="margin-top:14px">
+        <div style="font-size:15px;font-weight:700;color:var(--text-1);margin-bottom:12px;display:flex;align-items:center;gap:6px">${icon('barChart','i-sm')} Статистика за апрель</div>
+
+        <!-- Ring + KPI row -->
+        <div style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap">
+          <!-- Rating ring -->
+          <div class="card" style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:20px 24px">
+            <div style="position:relative;width:90px;height:90px">
+              <svg viewBox="0 0 36 36" style="width:90px;height:90px;transform:rotate(-90deg)">
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--bg-2)" stroke-width="3"/>
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--green)" stroke-width="3" stroke-dasharray="${4.8/5*100} ${100-4.8/5*100}" stroke-linecap="round"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                <div style="font-size:22px;font-weight:800;color:var(--green);line-height:1">4.8</div>
+                <div style="font-size:9px;color:var(--muted);margin-top:2px">из 5.0</div>
+              </div>
+            </div>
+            <div style="margin-left:14px">
+              <div style="font-size:13px;font-weight:700;color:var(--text-1)">Рейтинг</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:2px">Отличный результат</div>
+              <div style="display:flex;gap:1px;margin-top:6px">${[1,2,3,4,5].map(i=>`<span style="color:${i<=4?'var(--amber)':'var(--bg-2)'};font-size:14px">★</span>`).join('')}</div>
+            </div>
+          </div>
+
+          <!-- KPI mini cards -->
+          <div style="flex:1;min-width:200px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div class="card" style="padding:14px 16px">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+                <div style="width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;color:var(--blue)">${icon('activity','i-sm')}</div>
+                <span style="font-size:10px;color:var(--muted);font-weight:600">Ср. скорость</span>
+              </div>
+              <div style="font-size:22px;font-weight:800;color:var(--text-1)">38 <span style="font-size:12px;font-weight:500;color:var(--muted)">км/ч</span></div>
+            </div>
+            <div class="card" style="padding:14px 16px">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+                <div style="width:28px;height:28px;border-radius:8px;background:rgba(245,158,11,.1);display:flex;align-items:center;justify-content:center;color:var(--amber)">${icon('zap','i-sm')}</div>
+                <span style="font-size:10px;color:var(--muted);font-weight:600">Макс. скорость</span>
+              </div>
+              <div style="font-size:22px;font-weight:800;color:var(--text-1)">72 <span style="font-size:12px;font-weight:500;color:var(--muted)">км/ч</span></div>
+            </div>
+            <div class="card" style="padding:14px 16px">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+                <div style="width:28px;height:28px;border-radius:8px;background:rgba(16,185,129,.1);display:flex;align-items:center;justify-content:center;color:var(--green)">${icon('droplet','i-sm')}</div>
+                <span style="font-size:10px;color:var(--muted);font-weight:600">Ср. расход</span>
+              </div>
+              <div style="font-size:22px;font-weight:800;color:var(--text-1)">28.4 <span style="font-size:12px;font-weight:500;color:var(--muted)">л/100</span></div>
+            </div>
+            <div class="card" style="padding:14px 16px">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+                <div style="width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,.1);display:flex;align-items:center;justify-content:center;color:var(--red)">${icon('alertTriangle','i-sm')}</div>
+                <span style="font-size:10px;color:var(--muted);font-weight:600">Нарушения</span>
+              </div>
+              <div style="font-size:22px;font-weight:800;color:var(--text-1)">1 <span style="font-size:12px;font-weight:500;color:var(--muted)">ПДД</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly activity chart -->
+        <div class="card">
+          <div class="ch"><div class="ct">Активность по дням недели</div><span class="chip c-blue">Текущая неделя</span></div>
+          <div class="cb">
+            <div style="display:flex;align-items:flex-end;gap:10px;height:120px;padding:0 8px">
+              ${[['Пн',92,'var(--blue)'],['Вт',85,'var(--blue)'],['Ср',88,'var(--blue)'],['Чт',91,'var(--blue)'],['Пт',87,'var(--blue)'],['Сб',74,'rgba(59,130,246,.4)'],['Вс',0,'var(--bg-2)']].map(([day,pct,clr])=>`
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <span style="font-size:10px;font-weight:700;color:${pct>80?'var(--blue)':pct>0?'var(--amber)':'var(--muted)'}">${pct?pct+'%':'-'}</span>
+                <div style="width:100%;max-width:36px;height:${Math.max(pct*0.95,4)}px;background:${clr};border-radius:6px 6px 3px 3px;transition:height .3s"></div>
+                <span style="font-size:10px;font-weight:600;color:var(--muted)">${day}</span>
               </div>`).join('')}
             </div>
-            <div>
-              <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Показатели</div>
-              <div class="sr"><span class="sr-l">Ср. скорость</span><span class="sr-v">38 км/ч</span></div>
-              <div class="sr"><span class="sr-l">Макс. скорость</span><span class="sr-v">72 км/ч</span></div>
-              <div class="sr"><span class="sr-l">Ср. расход</span><span class="sr-v">28.4 л/100км</span></div>
-              <div class="sr"><span class="sr-l">Резкие торможения</span><span class="sr-v" style="color:var(--amber)">3</span></div>
-              <div class="sr"><span class="sr-l">Нарушений ПДД</span><span class="sr-v" style="color:var(--red)">1</span></div>
-              <div class="sr"><span class="sr-l">Рейтинг</span><span class="sr-v" style="color:var(--green)">★ 4.8</span></div>
+            <div style="display:flex;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--bg-2)">
+              <div style="display:flex;align-items:center;gap:6px">
+                <div style="width:8px;height:8px;border-radius:2px;background:var(--blue)"></div>
+                <span style="font-size:10px;color:var(--muted)">Рабочие дни</span>
+              </div>
+              <div style="font-size:11px;color:var(--muted)">Резких торможений: <b style="color:var(--amber)">3</b></div>
             </div>
           </div>
         </div>
