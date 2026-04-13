@@ -125,8 +125,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
 .sb-uinfo{flex:1;min-width:0;overflow:hidden}
 .sb-uname{font-size:11px;font-weight:600;color:var(--text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sb-urole{font-size:10px;color:var(--muted);white-space:nowrap}
-.sb-logout{background:none;border:none;cursor:pointer;color:var(--muted);display:flex;align-items:center;padding:4px;border-radius:4px;transition:color .1s}
-.sb-logout:hover{color:var(--text-1)}
+.sb-logout,.sb-switch{background:none;border:none;cursor:pointer;color:var(--muted);display:flex;align-items:center;padding:4px;border-radius:4px;transition:color .1s}
+.sb-logout:hover,.sb-switch:hover{color:var(--text-1)}
 
 /* === MAIN === */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
@@ -1384,9 +1384,16 @@ function backToLogin(){
   document.getElementById('rolePicker').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
 }
+function switchRole(){
+  origUser=null;
+  curUser=null;
+  document.getElementById('appRoot').innerHTML='';
+  document.getElementById('rpGreeting').textContent='Добро пожаловать, '+loggedAccount.name;
+  document.getElementById('rolePicker').style.display='flex';
+}
 function logout(){origUser=null;curUser=null;loggedAccount=null;localStorage.removeItem('aqjol_remember');document.getElementById('rolePicker').style.display='none';document.getElementById('loginScreen').style.display='flex';document.getElementById('appRoot').innerHTML='';document.getElementById('lEmail').value='';document.getElementById('lPass').value='';document.getElementById('lRemember').checked=false}
 // Auto-login from remembered session
-(function(){
+window.addEventListener('DOMContentLoaded',function(){
   const saved=localStorage.getItem('aqjol_remember');
   if(!saved)return;
   try{
@@ -1397,8 +1404,9 @@ function logout(){origUser=null;curUser=null;loggedAccount=null;localStorage.rem
     document.getElementById('rpGreeting').textContent='Добро пожаловать, '+u.name;
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('rolePicker').style.display='flex';
+    document.getElementById('lRemember').checked=true;
   }catch(e){}
-})()
+})
 
 // ── Build entire app based on role ──
 function buildApp(){
@@ -1530,6 +1538,7 @@ function buildApp(){
       <div class="sb-foot">
         <div class="sb-avatar" style="background:${displayUser.bg};color:${displayUser.color}">${displayUser.initials}</div>
         <div class="sb-uinfo sb-txt"><div class="sb-uname">${displayUser.name}</div><div class="sb-urole">${origUser?`Просмотр: ${curUser.rname}`:curUser.rname}</div></div>
+        <button class="sb-switch sb-txt" onclick="switchRole()" title="Сменить роль">${icon('arrowLR','i-sm')}</button>
         <button class="sb-logout sb-txt" onclick="logout()" title="Выйти">${icon('logOut','i-sm')}</button>
       </div>
     </aside>
